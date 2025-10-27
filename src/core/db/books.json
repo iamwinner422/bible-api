@@ -335,6 +335,10 @@
 			"alias": "TOB"
 		},
 		{
+			"book": "Tobit",
+			"alias": "TOB"
+		},
+		{
 			"book": "Judith",
 			"alias": "JDT"
 		},
@@ -343,7 +347,7 @@
 			"alias": "EST"
 		},
 		{
-			"book": "Esther Grec",
+			"book": "Esther grec",
 			"alias": "ESG"
 		},
 		{
@@ -351,7 +355,15 @@
 			"alias": "1MA"
 		},
 		{
+			"book": "Premier livre des Maccabées",
+			"alias": "1MA"
+		},
+		{
 			"book": "2 Machabées",
+			"alias": "2MA"
+		},
+		{
+			"book": "Deuxième livre des Maccabées",
 			"alias": "2MA"
 		},
 		{
@@ -372,6 +384,10 @@
 		},
 		{
 			"book": "Cantiques",
+			"alias": "SNG"
+		},
+		{
+			"book": "Cantique des Cantiques",
 			"alias": "SNG"
 		},
 		{
@@ -399,11 +415,19 @@
 			"alias": "BAR"
 		},
 		{
-			"book": "Lettre Jérémie",
+			"book": "Baruc",
+			"alias": "BAR"
+		},
+		{
+			"book": "Lettre de Jérémie",
 			"alias": "LJE"
 		},
 		{
 			"book": "Ezéchiel",
+			"alias": "EZK"
+		},
+		{
+			"book": "Ézékiel",
 			"alias": "EZK"
 		},
 		{
@@ -439,7 +463,15 @@
 			"alias": "NAM"
 		},
 		{
+			"book": "Nahoum",
+			"alias": "NAM"
+		},
+		{
 			"book": "Habacuc",
+			"alias": "HAB"
+		},
+		{
+			"book": "Habaquq",
 			"alias": "HAB"
 		},
 		{
@@ -452,6 +484,10 @@
 		},
 		{
 			"book": "Zacharie",
+			"alias": "ZEC"
+		},
+		{
+			"book": "Zakarie",
 			"alias": "ZEC"
 		},
 		{
