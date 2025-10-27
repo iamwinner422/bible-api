@@ -7,18 +7,17 @@ import { GetVerseDto } from './dto/get-verse.dto';
 @Injectable()
 export class VerseService {
 	getVersion(dto: GetVerseDto): VersionInfo {
-		console.log(dto);
 		return (
 			this.getVersionInfo(dto.version, dto.language) ??
 			defaultVersion[dto.language]
 		);
 	}
 
+
 	private getVersionInfo(
 		version: string,
 		language: string,
 	): VersionInfo | undefined {
-		console.log(version, language);
 		const languageVersions = versions[language] as VersionInfo[];
 
 		if (!languageVersions) {
@@ -29,6 +28,7 @@ export class VerseService {
 				versionInfo.name.toLowerCase() === version.toLowerCase(),
 		);
 	}
+
 
 	private getBookInfo(book: string, language: string): BookInfo | undefined {
 		const languageBooks = books[language] as BookInfo[];
