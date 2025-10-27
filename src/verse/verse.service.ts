@@ -1,42 +1,45 @@
 import { Injectable } from '@nestjs/common';
 import versions from '../core/db/versions.json';
-import { VersionInfo } from 'src/core/types';
+import books from '../core/db/books.json';
+import { BookInfo, defaultVersion, VersionInfo } from 'src/core/types';
 import { GetVerseDto } from './dto/get-verse.dto';
 
-const defaultVersion: { [key: string]: VersionInfo } = {
-	en: {
-		id: 1,
-		name: 'KJV',
-	},
-	fr: {
-		id: 93,
-		name: 'LSG',
-	},
-};
 @Injectable()
 export class VerseService {
 	getVersion(dto: GetVerseDto): VersionInfo {
-		return this.getVersioInfo(dto.version, dto.language);
+		console.log(dto);
+		return (
+			this.getVersionInfo(dto.version, dto.language) ??
+			defaultVersion[dto.language]
+		);
 	}
 
-	private getVersioInfo(versionName: string, language: string): VersionInfo {
-		// eslint-disable-next-line prettier/prettier
-		const languageVersions = versions[language] as { [key: string]: VersionInfo };
-		console.log(languageVersions);
+	private getVersionInfo(
+		version: string,
+		language: string,
+	): VersionInfo | undefined {
+		console.log(version, language);
+		const languageVersions = versions[language] as VersionInfo[];
 
 		if (!languageVersions) {
-			return defaultVersion[language] || defaultVersion['en'];
+			return undefined;
 		}
-
-		const foundKey = Object.keys(languageVersions).find(
-			(key) =>
-				key.toLocaleUpperCase() === versionName.toLocaleUpperCase(),
+		return languageVersions.find(
+			(versionInfo: VersionInfo) =>
+				versionInfo.name.toLowerCase() === version.toLowerCase(),
 		);
+	}
 
-		if (foundKey) {
-			return languageVersions[foundKey];
+	private getBookInfo(book: string, language: string): BookInfo | undefined {
+		const languageBooks = books[language] as BookInfo[];
+
+		if (!languageBooks) {
+			return undefined;
 		}
 
-		return defaultVersion[language] || defaultVersion['en'];
+		return languageBooks.find(
+			(bookInfo: BookInfo) =>
+				bookInfo.book.toLowerCase() === book.toLowerCase(),
+		);
 	}
 }

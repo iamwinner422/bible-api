@@ -1,38 +1,130 @@
 {
-  "en": {
-    "ASV": 12,
-    "AMP": 1588,
-    "AMPC": 8,
-    "CPDV": 42,
-    "ICL00D": 1196,
-    "KJV": 1,
-    "NIV": 111,
-    "NLT": 116,
-    "NR06": 122,
-    "VULG": 823,
-    "B21": 15,
-    "BKR": 44,
-    "SNC": 162,
-    "CSP": 509,
-    "bibel.heute": 877,
-    "Hfa": 73,
-    "DELUT": 51,
-    "LUTheute": 3100,
-    "SLB": 644,
-    "NPK": 3835,
-    "SEB": 465,
-    "SEBDT": 464,
-    "SSV": 163,
-    "MB20": 2505
-  },
-
-  "fr": {
-    "BCC1923": 504,
-    "PDV2017": 133,
-    "BDS": 21,
-    "BFC": 63,
-    "LSG": 93,
-    "S21": 152,
-    "NFC": 2367
-  }
+	"en": [
+		{
+			"id": 1,
+			"name": "KJV"
+		},
+		{
+			"id": 12,
+			"name": "ASV"
+		},
+		{
+			"id": 1588,
+			"name": "AMP"
+		},
+		{
+			"id": 8,
+			"name": "AMPC"
+		},
+		{
+			"id": 42,
+			"name": "CPDV"
+		},
+		{
+			"id": 1196,
+			"name": "ICL00D"
+		},
+		{
+			"id": 111,
+			"name": "NIV"
+		},
+		{
+			"id": 116,
+			"name": "NLT"
+		},
+		{
+			"id": 122,
+			"name": "NR06"
+		},
+		{
+			"id": 823,
+			"name": "VULG"
+		},
+		{
+			"id": 15,
+			"name": "B21"
+		},
+		{
+			"id": 44,
+			"name": "BKR"
+		},
+		{
+			"id": 162,
+			"name": "SNC"
+		},
+		{
+			"id": 509,
+			"name": "CSP"
+		},
+		{
+			"id": 877,
+			"name": "bibel.heute"
+		},
+		{
+			"id": 73,
+			"name": "Hfa"
+		},
+		{
+			"id": 51,
+			"name": "DELUT"
+		},
+		{
+			"id": 3100,
+			"name": "LUTheute"
+		},
+		{
+			"id": 644,
+			"name": "SLB"
+		},
+		{
+			"id": 3835,
+			"name": "NPK"
+		},
+		{
+			"id": 465,
+			"name": "SEB"
+		},
+		{
+			"id": 464,
+			"name": "SEBDT"
+		},
+		{
+			"id": 163,
+			"name": "SSV"
+		},
+		{
+			"id": 2505,
+			"name": "MB20"
+		}
+	],
+	"fr": [
+		{
+			"id": 93,
+			"name": "LSG"
+		},
+		{
+			"id": 504,
+			"name": "BCC1923"
+		},
+		{
+			"id": 133,
+			"name": "PDV2017"
+		},
+		{
+			"id": 21,
+			"name": "BDS"
+		},
+		{
+			"id": 63,
+			"name": "BFC"
+		},
+		{
+			"id": 152,
+			"name": "S21"
+		},
+		{
+			"id": 2367,
+			"name": "NFC"
+		}
+	]
 }

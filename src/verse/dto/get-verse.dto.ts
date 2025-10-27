@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsEmpty, IsEnum } from 'class-validator';
-import { SupportedLanguages } from 'src/core/types';
+import { IsNotEmpty, IsOptional } from 'class-validator';
+import { defaultVersion, SupportedLanguages } from 'src/core/types';
+
 
 export class GetVerseDto {
 	@IsNotEmpty()
@@ -11,9 +12,9 @@ export class GetVerseDto {
 	@IsNotEmpty()
 	readonly verses: string;
 
-	@IsEmpty()
-	readonly version: string;
+	@IsOptional()
+	version: string = defaultVersion[SupportedLanguages.EN].name;
 
-	@IsEnum(SupportedLanguages)
-	readonly language: string;
+	@IsOptional()
+	language: string = SupportedLanguages.EN;
 }
