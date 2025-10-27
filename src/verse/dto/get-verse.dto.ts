@@ -1,4 +1,4 @@
-import { IsNotEmpty, MaxLength, IsEmpty, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsEmpty, IsEnum } from 'class-validator';
 import { SupportedLanguages } from 'src/core/types';
 
 export class GetVerseDto {
@@ -6,7 +6,6 @@ export class GetVerseDto {
 	readonly book: string;
 
 	@IsNotEmpty()
-	@MaxLength(3)
 	readonly chapter: string;
 
 	@IsNotEmpty()
