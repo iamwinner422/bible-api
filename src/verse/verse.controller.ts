@@ -2,7 +2,7 @@ import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VerseService } from './verse.service';
 import { GetVerseDto } from './dto/get-verse.dto';
-import { SupportedLanguages } from 'src/core/types';
+import { Languages } from 'src/core/types';
 
 @ApiTags('Verse')
 @Controller('verse')
@@ -14,13 +14,13 @@ export class VerseController {
 		type: GetVerseDto,
 		examples: {
 			exampleVerseRequest: {
-				summary: 'Sample for Jean 3:16 in French',
+				summary: 'Sample for Jean 3:16 (PDV2017) in French',
 				value: {
 					book: 'John',
 					chapter: 3,
 					verses: 16,
 					version: 'PDV2017',
-					language: SupportedLanguages.FR,
+					language: Languages.FR,
 				},
 			},
 		},

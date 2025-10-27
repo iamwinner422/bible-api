@@ -1,4 +1,4 @@
-export enum SupportedLanguages {
+export enum Languages {
 	EN = 'en',
 	FR = 'fr',
 }
@@ -13,18 +13,8 @@ export interface BookInfo {
 	alias: string;
 }
 
-export interface Version {
-	id: number;
-	name: string;
+export interface Verse {
+	number: number;
+	content: string;
 }
 
-export const defaultVersion: { [key: string]: VersionInfo } = {
-	en: {
-		id: 1,
-		name: 'KJV',
-	},
-	fr: {
-		id: 93,
-		name: 'LSG',
-	},
-};

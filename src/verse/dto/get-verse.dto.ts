@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
-import { defaultVersion, SupportedLanguages } from 'src/core/types';
+import { DEFAULT_VERSIONS } from 'src/core/constants';
+import { Languages } from 'src/core/types';
 
 
 export class GetVerseDto {
@@ -13,8 +14,8 @@ export class GetVerseDto {
 	readonly verses: string;
 
 	@IsOptional()
-	version: string = defaultVersion[SupportedLanguages.EN].name;
+	version: string = DEFAULT_VERSIONS[Languages.EN].name;
 
 	@IsOptional()
-	language: string = SupportedLanguages.EN;
+	language: string = Languages.EN;
 }
