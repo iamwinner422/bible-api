@@ -2,7 +2,7 @@ import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VerseService } from './verse.service';
 import { GetVerseDto } from './dto/get-verse.dto';
-import { Languages } from 'src/core/types';
+import { Languages } from '../core/types';
 
 @ApiTags('Verse')
 @Controller('verse')

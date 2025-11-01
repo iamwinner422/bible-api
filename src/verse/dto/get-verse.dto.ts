@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional } from 'class-validator';
-import { DEFAULT_VERSIONS } from 'src/core/constants';
-import { Languages } from 'src/core/types';
+import { DEFAULT_VERSIONS } from '../../core/constants';
+import { Languages } from '../../core/types';
 
 
 export class GetVerseDto {
