@@ -1,98 +1,58 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Bible Verses API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This API allows you to get Bible verses, chapters, or entire passages in different versions and languages using [YouVersion](https://bible.com) .
+It is ideal for applications, websites, or bots that want to integrate Bible texts quickly and easily.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- Search for verses, chapters, or passages by book name, chapter, verse, version, and language.
+- Multilingual support (English and French).
+- Plusieurs versions bibliques disponibles pour chaque langue.
+- Structured, easy-to-use responses.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## API Parameters
 
-## Project setup
+| Parameter | Type   | Required | Description | Default Value |
+|-----------|--------|--------|---------------|-------------------|
+| book      | string | Yes    | Book livre (ex: `John`, `Jean`) | - |
+| chapter   | string | Yes    | Chapter number | - |
+| verses    | string | Yes    | Verse number (ou `-1` pour tout le chapitre) | - |
+| version   | string | No     | Version de la Bible (voir tableau ci-dessous) | `KJV` (en), `LSG` (fr) |
+| language  | string | No    | Language (`en` or`fr`) | `en` |
 
-```bash
-$ npm install
+## Using
+
+```json
+POST /verse
+{
+  "book": "John",
+  "chapter": "3",
+  "verses": "16"
+}
 ```
 
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+Réponse (exemple) :
+```json
+{
+  "citation": "John 3:16 (KJV)",
+  "passage": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
+}
 ```
 
-## Run tests
+## Available Bible versions
 
-```bash
-# unit tests
-$ npm run test
+| Langue   | Versions disponibles |
+|----------|---------------------|
+| **en**   | KJV, ASV, AMP, AMPC, CPDV, ICL00D, NIV, NLT, NR06, VULG, B21, BKR, SNC, CSP, bibel.heute, Hfa, DELUT, LUTheute, SLB, NPK, SEB, SEBDT, SSV, MB20 |
+| **fr**   | LSG, BCC1923, PDV2017, BDS, BFC, S21, NFC |
 
-# e2e tests
-$ npm run test:e2e
+You can still a new version according to available version on [YouVersion](https://bible.com) Bible.
 
-# test coverage
-$ npm run test:cov
-```
+## Default Values
 
-## Deployment
+- **Language** : English (`en`)
+- **Version** : KJV (English), LSG (French)
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Credits
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is fully inspired by [Glowstudent777's](https://github.com/Glowstudent777) [YouVersion-Core](https://github.com/Glowstudent777/YouVersion-Core) and [YouVersion-API](https://github.com/Glowstudent777/YouVersion-API).
