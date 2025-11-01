@@ -34,7 +34,7 @@ export class GetVerseDto {
 	version: string = DEFAULT_VERSIONS[Languages.EN].name;
 
 	@ApiProperty({
-    	description: 'Chapter',
+    	description: 'Language',
     	example: 'en',
 		enum: Languages
   	})
