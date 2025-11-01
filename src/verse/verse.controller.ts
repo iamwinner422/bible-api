@@ -20,7 +20,7 @@ export class VerseController {
 					chapter: 3,
 					verses: 16,
 					version: 'PDV2017',
-					language: Languages.FR,
+					language: Languages.EN,
 				},
 			},
 		},
