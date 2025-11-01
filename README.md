@@ -7,7 +7,7 @@ It is ideal for applications, websites, or bots that want to integrate Bible tex
 
 - Search for verses, chapters, or passages by book name, chapter, verse, version, and language.
 - Multilingual support (English and French).
-- Plusieurs versions bibliques disponibles pour chaque langue.
+- Multiple Bible versions available for each language.
 - Structured, easy-to-use responses.
 
 ## API Parameters
@@ -18,7 +18,7 @@ It is ideal for applications, websites, or bots that want to integrate Bible tex
 | chapter   | string | Yes    | Chapter number | - |
 | verses    | string | Yes    | Verse number (ou `-1` pour tout le chapitre) | - |
 | version   | string | No     | Version de la Bible (voir tableau ci-dessous) | `KJV` (en), `LSG` (fr) |
-| language  | string | No    | Language (`en` or`fr`) | `en` |
+| language  | string | No     | Language (`en` or`fr`) | `en` |
 
 ## Using
 
@@ -42,11 +42,11 @@ Réponse (exemple) :
 ## Available Bible versions
 
 | Langue   | Versions disponibles |
-|----------|---------------------|
+|----------|----------------------|
 | **en**   | KJV, ASV, AMP, AMPC, CPDV, ICL00D, NIV, NLT, NR06, VULG, B21, BKR, SNC, CSP, bibel.heute, Hfa, DELUT, LUTheute, SLB, NPK, SEB, SEBDT, SSV, MB20 |
 | **fr**   | LSG, BCC1923, PDV2017, BDS, BFC, S21, NFC |
 
-You can still a new version according to available version on [YouVersion](https://bible.com) Bible.
+You can still a new version according to available versions on [YouVersion](https://bible.com) Bible.
 
 ## Default Values
 
