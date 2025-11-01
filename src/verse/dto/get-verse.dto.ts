@@ -7,7 +7,7 @@ import { Languages } from '../../core/types';
 export class GetVerseDto {
 	@ApiProperty({
     	description: 'Book Name',
-    	example: 'Jonh',
+    	example: 'John',
   	})
 	@IsNotEmpty()
 	readonly book: string;
@@ -21,7 +21,7 @@ export class GetVerseDto {
 
 	@ApiProperty({
     	description: 'Verses',
-    	example: '16, "-1", "16-18"',
+    	example: '16',
   	})
 	@IsNotEmpty()
 	readonly verses: string;
