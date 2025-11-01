@@ -13,8 +13,8 @@ async function bootstrap() {
 		.addTag('bible-api')
 		.build();
 
-	const documentFactory = () => SwaggerModule.createDocument(app, config);
-	SwaggerModule.setup('/', app, documentFactory);
+	const document = SwaggerModule.createDocument(app, config);
+	SwaggerModule.setup('docs', app, document);
 
 	app.useGlobalPipes(
 		new ValidationPipe({ whitelist: true, transform: true }),

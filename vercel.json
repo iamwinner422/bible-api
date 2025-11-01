@@ -8,6 +8,10 @@
 	],
 	"routes": [
 		{
+			"src": "/docs/(.*)",
+			"dest": "src/main.ts"
+		},
+		{
 			"src": "/(.*)",
 			"dest": "src/main.ts",
 			"methods": [
