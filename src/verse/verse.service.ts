@@ -2,10 +2,11 @@ import {
 	BadRequestException,
 	Injectable,
 	InternalServerErrorException,
+	NotFoundException,
 } from '@nestjs/common';
 import versions from '../core/db/versions.json';
 import books from '../core/db/books.json';
-import { BookInfo, Verse, VersionInfo } from 'src/core/types';
+import { BookInfo, NextData, Verse, VersionInfo } from 'src/core/types';
 import { GetVerseDto } from './dto/get-verse.dto';
 import {
 	BIBLE_APP_URL,
@@ -13,27 +14,9 @@ import {
 	SUPPORTED_LANGUAGES,
 } from 'src/core/constants';
 import axios from 'axios';
-import { Cheerio } from 'cheerio';
 import * as cheerio from 'cheerio';
+import { cleanText } from 'src/core/utils';
 
-interface NextData {
-	props: {
-		pageProps: {
-			initialState?: any; // Make optional if not always present or directly used for content
-			chapterInfo?: {
-				// Add chapterInfo as it's accessed
-				content: string;
-			};
-			verses?: Array<{
-				// Add verses as it's accessed in the else branch
-				content: string;
-				reference: {
-					human: string;
-				};
-			}>;
-		};
-	};
-}
 
 @Injectable()
 export class VerseService {
@@ -48,6 +31,7 @@ export class VerseService {
 			const foundedVersion =
 				this.getVersionInfo(version, language) ??
 				DEFAULT_VERSIONS[language];
+			const foundVersionName = foundedVersion.name;
 			const foundedBook = this.getBookInfo(book, language);
 
 			// check if book is correct
@@ -60,10 +44,10 @@ export class VerseService {
 					? `${BIBLE_APP_URL}/${foundedVersion.id}/${foundedBook.alias}.${chapter}`
 					: `${BIBLE_APP_URL}/${foundedVersion.id}/${foundedBook.alias}.${chapter}.${verses}`;
 
-			return this.fetchVerses(URL, book, chapter, verses);
+			return this.fetchVerses(URL, book, chapter, verses, foundVersionName);
 		} catch (error) {
 			console.log(error);
-			throw new InternalServerErrorException('Something went wrong');
+			return new InternalServerErrorException('Something went wrong');
 		}
 	}
 
@@ -105,54 +89,70 @@ export class VerseService {
 		book: string,
 		chapter: string,
 		verses: string,
-	) {
-		const versesArray: Verse[] = [];
-		const { data } = await axios.get<string>(url);
+		version: string
+	): Promise<any> {
+		try {
+			const { data } = await axios.get<string>(url, {
+				timeout: 8000,
+				headers: {
+					'User-Agent':
+						'Mozilla/5.0 (Windows NT 11.00; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0',
+				},
+			});
 
-		const $ = cheerio.load(data);
+			const $ = cheerio.load(data);
 
-		const unavailable = $("p:contains('No Available Verses')").text();
-		if (unavailable) {
-			throw new BadRequestException('Verses not found');
-		}
+			if ($("p:contains('No Available Verses')").length) {
+				return new NotFoundException('Verses not found');
+			}
 
-		const nextWay: Cheerio<any> = $('script#__NEXT_DATA__').eq(0);
+			const nextScript = $("script#__NEXT_DATA__").first();
+			if (nextScript.length) {
+				const json = JSON.parse(nextScript.html() || '') as NextData;
 
-		if (nextWay) {
-			const jsonData = JSON.parse(nextWay.html() || '') as NextData;
+				if (verses !== '-1') {
+					const verseData = json.props.pageProps.verses?.[0];
+					if (!verseData)
+						return new NotFoundException('Verse not found in JSON data.')
 
-			if (verses == '-1') {
-				if (!jsonData.props.pageProps.chapterInfo?.content) {
-					throw new InternalServerErrorException(
-						'Chapter content not found',
-					);
+					const passage = cleanText(cheerio.load(verseData.content).text());
+					const reference = verseData.reference.human;
+
+					return {
+						citation: `${reference} (${version})`,
+						passage,
+					};
 				}
 
-				const content = jsonData.props.pageProps.chapterInfo.content; // Type is now correctly inferred as string
-				const fullChapter = cheerio.load(content).html();
+				const chapterHtml = json.props.pageProps.chapterInfo?.content;
+				if (!chapterHtml)
+					return new NotFoundException('Chapter content not found.')
 
-				// Split each verse into an array.
-				const paverses = fullChapter.split(
-					/<span class="label">[0-9]*<\/span>/g,
-				);
-				const title = cheerio.load(paverses[0])('.heading').text();
+				const chapter$ = cheerio.load(chapterHtml);
+				const title =
+					chapter$('.heading').first().text().trim() ||
+					chapter$('.d').first().text().trim() ||
+					`${book} ${chapter}`;
+
+				const versesArray: Verse[] = [];
+				const paverses = chapterHtml.split(/<span class="label">\d+<\/span>/g);
+				const titleText = cheerio.load(paverses[0])('.heading').text();
 				paverses.shift();
 
-				// Verses" { "1": "...", "2": "...", ... }
 				paverses.forEach((verse: string, index: number) => {
 					const verseNumber = index + 1;
+					let verseText = cheerio.load(verse)('.content').text();
 
-					verse = cheerio.load(verse)('.content').text();
-					verse = verse.replace(/\n/g, ' ').trim();
-
-					versesArray.push({
-						number: verseNumber,
-						content: verse,
-					});
+					verseText = cleanText(verseText);
+					if (verseText)
+						versesArray.push({
+							number: verseNumber,
+							content: verseText,
+						});
 				});
 
-				const versesObject = versesArray.reduce(
-					(acc: { [key: number]: string }, verse) => {
+				const versesObj = versesArray.reduce(
+					(acc: Record<number, string>, verse) => {
 						acc[verse.number] = verse.content;
 						return acc;
 					},
@@ -160,42 +160,27 @@ export class VerseService {
 				);
 
 				return {
-					title: title,
-					verses: versesObject,
-					citation: `${book} ${chapter}`,
-				};
-			} else {
-				if (
-					!jsonData.props.pageProps.verses ||
-					jsonData.props.pageProps.verses.length === 0
-				) {
-					throw new InternalServerErrorException(
-						'Verse content not found',
-					);
-				}
-				const verse = jsonData.props.pageProps.verses[0].content;
-				const reference =
-					jsonData.props.pageProps.verses[0].reference.human;
-
-				return {
-					citation: `${reference}`,
-					passage: verse,
+					title: `${titleText || title} (${version})`,
+					verses: versesObj,
+					citation: `${book} ${chapter} (${version})`,
 				};
 			}
-		} else {
-			const versesArray: Array<string> = [];
-			const wrapper: Cheerio<any> = $('.text-17');
 
-			wrapper.each((i, p) => {
-				const unformattedVerse = $(p).eq(0).text();
-				const formattedVerse = unformattedVerse.replace(/\n/g, ' ');
-				versesArray.push(formattedVerse);
+			const wrapper = $('.text-17');
+			const versesArray: string[] = [];
+
+			wrapper.each((_, p) => {
+				const text = cleanText($(p).text());
+				if (text) versesArray.push(text);
 			});
 
 			return {
-				citation: `${book} ${chapter}:${verses}`,
-				passage: versesArray[0],
+				citation: `${book} ${chapter}:${verses} (${version})`,
+				passage: versesArray[0] || '',
 			};
+		} catch (err) {
+			console.error('Error fetching or parsing verse:', err);
+			throw new InternalServerErrorException('Something went wrong')
 		}
 	}
 }

@@ -14,12 +14,12 @@ export class VerseController {
 		type: GetVerseDto,
 		examples: {
 			exampleVerseRequest: {
-				summary: 'Sample for Jean 3:16 (PDV2017) in French',
+				summary: 'Sample for Jean 3:16 (KJV) in English',
 				value: {
 					book: 'John',
 					chapter: 3,
 					verses: 16,
-					version: 'PDV2017',
+					version: 'KJV',
 					language: Languages.EN,
 				},
 			},
@@ -30,8 +30,15 @@ export class VerseController {
 		schema: {
 			type: 'object',
 			properties: {
-				name: { type: 'string' },
-				id: { type: 'string' },
+				passage: { type: 'string' },
+				title: { type: 'string' } ,
+				verses: { type: 'object',
+					properties: {
+						verseNumber: { type: 'string'},
+						verseContent: { type: 'string'}
+					}
+				},
+				citation: { type: 'string' },
 			},
 		},
 	})

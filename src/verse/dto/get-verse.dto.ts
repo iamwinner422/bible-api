@@ -1,21 +1,43 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 import { DEFAULT_VERSIONS } from 'src/core/constants';
 import { Languages } from 'src/core/types';
 
 
 export class GetVerseDto {
+	@ApiProperty({
+    	description: 'Book Name',
+    	example: 'Jonh',
+  	})
 	@IsNotEmpty()
 	readonly book: string;
 
+	@ApiProperty({
+    	description: 'Chapter',
+    	example: '3',
+  	})
 	@IsNotEmpty()
 	readonly chapter: string;
 
+	@ApiProperty({
+    	description: 'Verses',
+    	example: '16, "-1", "16-18"',
+  	})
 	@IsNotEmpty()
 	readonly verses: string;
 
+	@ApiProperty({
+    	description: 'Version',
+    	example: 'KJV',
+  	})
 	@IsOptional()
 	version: string = DEFAULT_VERSIONS[Languages.EN].name;
 
+	@ApiProperty({
+    	description: 'Chapter',
+    	example: 'en',
+		enum: Languages
+  	})
 	@IsOptional()
 	language: string = Languages.EN;
 }

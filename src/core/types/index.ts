@@ -18,3 +18,21 @@ export interface Verse {
 	content: string;
 }
 
+
+export interface NextData {
+	props: {
+		pageProps: {
+			initialState?: any;
+			chapterInfo?: {
+				content: string;
+			};
+			verses?: Array<{
+				content: string;
+				reference: {
+					human: string;
+				};
+			}>;
+		};
+	};
+}
+
