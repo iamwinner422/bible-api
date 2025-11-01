@@ -6,16 +6,16 @@ import {
 } from '@nestjs/common';
 import versions from '../core/db/versions.json';
 import books from '../core/db/books.json';
-import { BookInfo, NextData, Verse, VersionInfo } from 'src/core/types';
+import { BookInfo, NextData, Verse, VersionInfo } from '../core/types';
 import { GetVerseDto } from './dto/get-verse.dto';
 import {
 	BIBLE_APP_URL,
 	DEFAULT_VERSIONS,
 	SUPPORTED_LANGUAGES,
-} from 'src/core/constants';
+} from '../core/constants';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { cleanText } from 'src/core/utils';
+import { cleanText } from '../core/utils';
 
 
 @Injectable()
