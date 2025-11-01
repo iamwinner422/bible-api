@@ -23,18 +23,13 @@ It is ideal for applications, websites, or bots that want to integrate Bible tex
 ## Using
 
 ```json
-POST /verse
-{
-  "book": "John",
-  "chapter": "3",
-  "verses": "16"
-}
+GET /verse?book=John&chapter=3&verses=16
 ```
 
 Réponse (exemple) :
 ```json
 {
-  "citation": "John 3:16 (KJV)",
+  "citation": "John 3:16 (LSG)",
   "passage": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
 }
 ```
