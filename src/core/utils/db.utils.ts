@@ -14,6 +14,19 @@ export const getVersionInfo = (version: string, language: string): VersionInfo |
 	);
 }
 
+export const getVersionInfoStandlone = (version: string): VersionInfo | undefined => {
+	const availbleVersions = versions as Record<string, VersionInfo[]>;
+	for (const language in availbleVersions){
+		const found = availbleVersions[language].find(
+			(versionInfo: VersionInfo) => versionInfo.name.toLowerCase() === version.toLowerCase()
+		);
+
+		return found;
+	}
+
+	return undefined;
+}
+
 export const getBookInfo = (book: string, language: string): BookInfo | undefined => {
 	const languageBooks = books[language] as BookInfo[];
 

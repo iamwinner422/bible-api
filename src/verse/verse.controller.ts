@@ -31,7 +31,7 @@ export class VerseController {
 		return this.verseService.getVerse(query);
 	}
 
-	@Get()
+	@Get('/random')
 	@ApiResponse({
 		status: HttpStatus.OK,
 		schema: {
@@ -42,7 +42,7 @@ export class VerseController {
 			},
 		},
 	})
-	getRandom(@Query() query: GetRandomVerseDto){
-		return this.verseService.getRandomVerse(query);
+	async getRandom(@Query() query: GetRandomVerseDto){
+		return await this.verseService.getRandomVerse(query);
 	}
 }

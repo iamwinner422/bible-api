@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
-import { DEFAULT_VERSIONS } from '../../core/constants';
 import { Languages } from '../../core/types';
 
 
@@ -10,7 +9,7 @@ export class GetRandomVerseDto {
 		example: 'KJV',
 	})
 	@IsOptional()
-	version?: string = DEFAULT_VERSIONS[Languages.EN].name;
+	version?: string;
 
 	@ApiProperty({
 		description: 'Language',
@@ -18,5 +17,5 @@ export class GetRandomVerseDto {
 		enum: Languages
 	})
 	@IsOptional()
-	language?: string = Languages.EN;
+	language?: string;
 }

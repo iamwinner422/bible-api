@@ -1,6 +1,3 @@
-
-
-
 export const cleanText = (html: string): string => {
 	return html
 		.replace(/\s+/g, ' ')
@@ -12,3 +9,8 @@ export const cleanText = (html: string): string => {
 }
 
 
+export const getRandomIntInclusive = (min: number, max: number): number => {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}

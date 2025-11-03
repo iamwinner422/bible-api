@@ -11,13 +11,13 @@ export interface VersionInfo {
 export interface BookInfo {
 	book: string;
 	alias: string;
+	chapters: number
 }
 
 export interface Verse {
 	number: number;
 	content: string;
 }
-
 
 export interface NextData {
 	props: {
@@ -35,4 +35,21 @@ export interface NextData {
 		};
 	};
 }
+
+export interface FullChapter {
+	title: string;
+	verses: Record<number, string>;
+	citation: string;
+}
+
+export const defaultVersion: { [key: string]: VersionInfo } = {
+	en: {
+		id: 1,
+		name: 'KJV',
+	},
+	fr: {
+		id: 93,
+		name: 'LSG',
+	},
+};
 
