@@ -2,6 +2,7 @@ import { Controller, Get, HttpStatus, Query } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VerseService } from './verse.service';
 import { GetVerseDto } from './dto/get-verse.dto';
+import { GetRandomVerseDto } from './dto/get-random-verse.dto';
 
 @ApiTags('Verse')
 @Controller('verse')
@@ -26,7 +27,22 @@ export class VerseController {
 			},
 		},
 	})
-	getVerse(@Query() dto: GetVerseDto) {
-		return this.verseService.getVersion(dto);
+	getVerse(@Query() query: GetVerseDto) {
+		return this.verseService.getVerse(query);
+	}
+
+	@Get('/random')
+	@ApiResponse({
+		status: HttpStatus.OK,
+		schema: {
+			type: 'object',
+			properties: {
+				passage: { type: 'string' },
+				citation: { type: 'string' },
+			},
+		},
+	})
+	async getRandom(@Query() query: GetRandomVerseDto){
+		return await this.verseService.getRandomVerse(query);
 	}
 }

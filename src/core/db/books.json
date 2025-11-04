@@ -2,605 +2,760 @@
 	"en": [
 		{
 			"book": "Genesis",
-			"alias": "GEN"
+			"alias": "GEN",
+			"chapters": 50
 		},
 		{
 			"book": "Exodus",
-			"alias": "EXO"
+			"alias": "EXO",
+			"chapters": 40
 		},
 		{
 			"book": "Leviticus",
-			"alias": "LEV"
+			"alias": "LEV",
+			"chapters": 27
 		},
 		{
 			"book": "Numbers",
-			"alias": "NUM"
+			"alias": "NUM",
+			"chapters": 36
 		},
 		{
 			"book": "Deuteronomy",
-			"alias": "DEU"
+			"alias": "DEU",
+			"chapters": 34
 		},
 		{
 			"book": "Joshua",
-			"alias": "JOS"
+			"alias": "JOS",
+			"chapters": 24
 		},
 		{
 			"book": "Judges",
-			"alias": "JDG"
+			"alias": "JDG",
+			"chapters": 21
 		},
 		{
 			"book": "Ruth",
-			"alias": "RUT"
+			"alias": "RUT",
+			"chapters": 4
 		},
 		{
 			"book": "1st Samuel",
-			"alias": "1SA"
+			"alias": "1SA",
+			"chapters": 31
 		},
 		{
 			"book": "2nd Samuel",
-			"alias": "2SA"
+			"alias": "2SA",
+			"chapters": 24
 		},
 		{
 			"book": "1st Kings",
-			"alias": "1KI"
+			"alias": "1KI",
+			"chapters": 22
 		},
 		{
 			"book": "2nd Kings",
-			"alias": "2KI"
+			"alias": "2KI",
+			"chapters": 25
 		},
 		{
 			"book": "1st Chronicles",
-			"alias": "1CH"
+			"alias": "1CH",
+			"chapters": 29
 		},
 		{
 			"book": "2nd Chronicles",
-			"alias": "2CH"
+			"alias": "2CH",
+			"chapters": 36
 		},
 		{
 			"book": "Ezra",
-			"alias": "EZR"
+			"alias": "EZR",
+			"chapters": 10
 		},
 		{
 			"book": "Nehemiah",
-			"alias": "NEH"
+			"alias": "NEH",
+			"chapters": 13
 		},
 		{
 			"book": "Esther",
-			"alias": "EST"
+			"alias": "EST",
+			"chapters": 10
 		},
 		{
 			"book": "Job",
-			"alias": "JOB"
+			"alias": "JOB",
+			"chapters": 42
 		},
 		{
 			"book": "Psalms",
-			"alias": "PSA"
+			"alias": "PSA",
+			"chapters": 150
 		},
 		{
 			"book": "Proverbs",
-			"alias": "PRO"
+			"alias": "PRO",
+			"chapters": 31
 		},
 		{
 			"book": "Ecclesiastes",
-			"alias": "ECC"
+			"alias": "ECC",
+			"chapters": 12
 		},
 		{
 			"book": "Song of Songs",
-			"alias": "SNG"
+			"alias": "SNG",
+			"chapters": 8
 		},
 		{
 			"book": "Isaiah",
-			"alias": "ISA"
+			"alias": "ISA",
+			"chapters": 66
 		},
 		{
 			"book": "Jeremiah",
-			"alias": "JER"
+			"alias": "JER",
+			"chapters": 52
 		},
 		{
 			"book": "Lamentations",
-			"alias": "LAM"
+			"alias": "LAM",
+			"chapters": 5
 		},
 		{
 			"book": "Ezekiel",
-			"alias": "EZK"
+			"alias": "EZK",
+			"chapters": 48
 		},
 		{
 			"book": "Daniel",
-			"alias": "DAN"
+			"alias": "DAN",
+			"chapters": 12
 		},
 		{
 			"book": "Hosea",
-			"alias": "HOS"
+			"alias": "HOS",
+			"chapters": 14
 		},
 		{
 			"book": "Joel",
-			"alias": "JOL"
+			"alias": "JOL",
+			"chapters": 3
 		},
 		{
 			"book": "Amos",
-			"alias": "AMO"
+			"alias": "AMO",
+			"chapters": 9
 		},
 		{
 			"book": "Obadiah",
-			"alias": "OBA"
+			"alias": "OBA",
+			"chapters": 1
 		},
 		{
 			"book": "Jonah",
-			"alias": "JON"
+			"alias": "JON",
+			"chapters": 4
 		},
 		{
 			"book": "Micah",
-			"alias": "MIC"
+			"alias": "MIC",
+			"chapters": 7
 		},
 		{
 			"book": "Nahum",
-			"alias": "NAM"
+			"alias": "NAM",
+			"chapters": 3
 		},
 		{
 			"book": "Habakkuk",
-			"alias": "HAB"
+			"alias": "HAB",
+			"chapters": 3
 		},
 		{
 			"book": "Zephaniah",
-			"alias": "ZEP"
+			"alias": "ZEP",
+			"chapters": 3
 		},
 		{
 			"book": "Haggai",
-			"alias": "HAG"
+			"alias": "HAG",
+			"chapters": 2
 		},
 		{
 			"book": "Zechariah",
-			"alias": "ZEC"
+			"alias": "ZEC",
+			"chapters": 14
 		},
 		{
 			"book": "Malachi",
-			"alias": "MAL"
+			"alias": "MAL",
+			"chapters": 4
 		},
 		{
 			"book": "Matthew",
-			"alias": "MAT"
+			"alias": "MAT",
+			"chapters": 28
 		},
 		{
 			"book": "Mark",
-			"alias": "MRK"
+			"alias": "MRK",
+			"chapters": 16
 		},
 		{
 			"book": "Luke",
-			"alias": "LUK"
+			"alias": "LUK",
+			"chapters": 24
 		},
 		{
 			"book": "John",
-			"alias": "JHN"
+			"alias": "JHN",
+			"chapters": 21
 		},
 		{
 			"book": "Acts",
-			"alias": "ACT"
+			"alias": "ACT",
+			"chapters": 28
 		},
 		{
 			"book": "Romans",
-			"alias": "ROM"
+			"alias": "ROM",
+			"chapters": 16
 		},
 		{
 			"book": "1st Corinthians",
-			"alias": "1CO"
+			"alias": "1CO",
+			"chapters": 16
 		},
 		{
 			"book": "2nd Corinthians",
-			"alias": "2CO"
+			"alias": "2CO",
+			"chapters": 13
 		},
 		{
 			"book": "Galatians",
-			"alias": "GAL"
+			"alias": "GAL",
+			"chapters": 6
 		},
 		{
 			"book": "Ephesians",
-			"alias": "EPH"
+			"alias": "EPH",
+			"chapters": 6
 		},
 		{
 			"book": "Philippians",
-			"alias": "PHP"
+			"alias": "PHP",
+			"chapters": 4
 		},
 		{
 			"book": "Colossians",
-			"alias": "COL"
+			"alias": "COL",
+			"chapters": 4
 		},
 		{
 			"book": "1st Thessalonians",
-			"alias": "1TH"
+			"alias": "1TH",
+			"chapters": 5
 		},
 		{
 			"book": "2nd Thessalonians",
-			"alias": "2TH"
+			"alias": "2TH",
+			"chapters": 3
 		},
 		{
 			"book": "1st Timothy",
-			"alias": "1TI"
+			"alias": "1TI",
+			"chapters": 6
 		},
 		{
 			"book": "2nd Timothy",
-			"alias": "2TI"
+			"alias": "2TI",
+			"chapters": 4
 		},
 		{
 			"book": "Titus",
-			"alias": "TIT"
+			"alias": "TIT",
+			"chapters": 3
 		},
 		{
 			"book": "Philemon",
-			"alias": "PHM"
+			"alias": "PHM",
+			"chapters": 1
 		},
 		{
 			"book": "Hebrews",
-			"alias": "HEB"
+			"alias": "HEB",
+			"chapters": 13
 		},
 		{
 			"book": "James",
-			"alias": "JAS"
+			"alias": "JAS",
+			"chapters": 5
 		},
 		{
 			"book": "1st Peter",
-			"alias": "1PE"
+			"alias": "1PE",
+			"chapters": 5
 		},
 		{
 			"book": "2nd Peter",
-			"alias": "2PE"
+			"alias": "2PE",
+			"chapters": 3
 		},
 		{
 			"book": "1st John",
-			"alias": "1JN"
+			"alias": "1JN",
+			"chapters": 5
 		},
 		{
 			"book": "2nd John",
-			"alias": "2JN"
+			"alias": "2JN",
+			"chapters": 1
 		},
 		{
 			"book": "3rd John",
-			"alias": "3JN"
+			"alias": "3JN",
+			"chapters": 1
 		},
 		{
 			"book": "Jude",
-			"alias": "JUD"
+			"alias": "JUD",
+			"chapters": 1
 		},
 		{
 			"book": "Revelation",
-			"alias": "REV"
+			"alias": "REV",
+			"chapters": 22
 		}
 	],
 	"fr": [
 		{
 			"book": "Genèse",
-			"alias": "GEN"
+			"alias": "GEN",
+			"chapters": 50
 		},
 		{
 			"book": "Exode",
-			"alias": "EXO"
+			"alias": "EXO",
+			"chapters": 40
 		},
 		{
 			"book": "Lévitique",
-			"alias": "LEV"
+			"alias": "LEV",
+			"chapters": 27
 		},
 		{
 			"book": "Nombres",
-			"alias": "NUM"
+			"alias": "NUM",
+			"chapters": 36
 		},
 		{
 			"book": "Deutéronome",
-			"alias": "DEU"
+			"alias": "DEU",
+			"chapters": 34
 		},
 		{
 			"book": "Josué",
-			"alias": "JOS"
+			"alias": "JOS",
+			"chapters": 24
 		},
 		{
 			"book": "Juges",
-			"alias": "JDG"
+			"alias": "JDG",
+			"chapters": 21
 		},
 		{
 			"book": "Ruth",
-			"alias": "RUT"
+			"alias": "RUT",
+			"chapters": 4
 		},
 		{
 			"book": "1 Samuel",
-			"alias": "1SA"
+			"alias": "1SA",
+			"chapters": 31
 		},
 		{
 			"book": "2 Samuel",
-			"alias": "2SA"
+			"alias": "2SA",
+			"chapters": 24
 		},
 		{
 			"book": "1 Rois",
-			"alias": "1KI"
+			"alias": "1KI",
+			"chapters": 22
 		},
 		{
 			"book": "2 Rois",
-			"alias": "2KI"
+			"alias": "2KI",
+			"chapters": 25
 		},
 		{
 			"book": "1 Chroniques",
-			"alias": "1CH"
+			"alias": "1CH",
+			"chapters": 29
 		},
 		{
 			"book": "2 Chroniques",
-			"alias": "2CH"
+			"alias": "2CH",
+			"chapters": 36
 		},
 		{
 			"book": "Esdras",
-			"alias": "EZR"
+			"alias": "EZR",
+			"chapters": 10
 		},
 		{
 			"book": "Néhémie",
-			"alias": "NEH"
+			"alias": "NEH",
+			"chapters": 13
 		},
 		{
 			"book": "Tobie",
-			"alias": "TOB"
+			"alias": "TOB",
+			"chapters": 14
 		},
 		{
 			"book": "Tobit",
-			"alias": "TOB"
+			"alias": "TOB",
+			"chapters": 14
 		},
 		{
 			"book": "Judith",
-			"alias": "JDT"
+			"alias": "JDT",
+			"chapters": 16
 		},
 		{
 			"book": "Esther",
-			"alias": "EST"
+			"alias": "EST",
+			"chapters": 10
 		},
 		{
-			"book": "Esther grec",
-			"alias": "ESG"
+			"book": "Esther Grec",
+			"alias": "ESG",
+			"chapters": 10
 		},
 		{
 			"book": "1 Machabées",
-			"alias": "1MA"
+			"alias": "1MA",
+			"chapters": 16
 		},
 		{
 			"book": "Premier livre des Maccabées",
-			"alias": "1MA"
+			"alias": "1MA",
+			"chapters": 16
 		},
 		{
 			"book": "2 Machabées",
-			"alias": "2MA"
+			"alias": "2MA",
+			"chapters": 15
 		},
 		{
 			"book": "Deuxième livre des Maccabées",
-			"alias": "2MA"
+			"alias": "2MA",
+			"chapters": 15
 		},
 		{
 			"book": "Job",
-			"alias": "JOB"
+			"alias": "JOB",
+			"chapters": 42
 		},
 		{
 			"book": "Psaumes",
-			"alias": "PSA"
+			"alias": "PSA",
+			"chapters": 150
 		},
 		{
 			"book": "Proverbes",
-			"alias": "PRO"
+			"alias": "PRO",
+			"chapters": 31
 		},
 		{
 			"book": "Ecclésiaste",
-			"alias": "ECC"
+			"alias": "ECC",
+			"chapters": 12
 		},
 		{
 			"book": "Cantiques",
-			"alias": "SNG"
+			"alias": "SNG",
+			"chapters": 9
 		},
 		{
 			"book": "Cantique des Cantiques",
-			"alias": "SNG"
+			"alias": "SNG",
+			"chapters": 8
 		},
 		{
 			"book": "Sagesse",
-			"alias": "WIS"
+			"alias": "WIS",
+			"chapters": 19
 		},
 		{
 			"book": "Siracide",
-			"alias": "SIR"
+			"alias": "SIR",
+			"chapters": 51
+		},
+		{
+			"book": "Le Siracide",
+			"alias": "SIR",
+			"chapters": 51
 		},
 		{
 			"book": "Esaïe",
-			"alias": "ISA"
+			"alias": "ISA",
+			"chapters": 66
 		},
 		{
 			"book": "Jérémie",
-			"alias": "JER"
+			"alias": "JER",
+			"chapters": 52
 		},
 		{
 			"book": "Lamentations",
-			"alias": "LAM"
+			"alias": "LAM",
+			"chapters": 5
 		},
 		{
 			"book": "Baruch",
-			"alias": "BAR"
+			"alias": "BAR",
+			"chapters": 6
 		},
 		{
 			"book": "Baruc",
-			"alias": "BAR"
+			"alias": "BAR",
+			"chapters": 6
 		},
 		{
 			"book": "Lettre de Jérémie",
-			"alias": "LJE"
+			"alias": "LJE",
+			"chapters": 1
 		},
 		{
 			"book": "Ezéchiel",
-			"alias": "EZK"
+			"alias": "EZK",
+			"chapters": 48
 		},
 		{
 			"book": "Ézékiel",
-			"alias": "EZK"
+			"alias": "EZK",
+			"chapters": 48
 		},
 		{
 			"book": "Daniel",
-			"alias": "DAN"
+			"alias": "DAN",
+			"chapters": 12
 		},
 		{
 			"book": "Osée",
-			"alias": "HOS"
+			"alias": "HOS",
+			"chapters": 14
 		},
 		{
 			"book": "Joël",
-			"alias": "JOL"
+			"alias": "JOL",
+			"chapters": 3
 		},
 		{
 			"book": "Amos",
-			"alias": "AMO"
+			"alias": "AMO",
+			"chapters": 9
 		},
 		{
 			"book": "Abdias",
-			"alias": "OBA"
+			"alias": "OBA",
+			"chapters": 1
 		},
 		{
 			"book": "Jonas",
-			"alias": "JON"
+			"alias": "JON",
+			"chapters": 4
 		},
 		{
 			"book": "Michée",
-			"alias": "MIC"
+			"alias": "MIC",
+			"chapters": 7
 		},
 		{
 			"book": "Nahum",
-			"alias": "NAM"
+			"alias": "NAM",
+			"chapters": 3
 		},
 		{
 			"book": "Nahoum",
-			"alias": "NAM"
+			"alias": "NAM",
+			"chapters": 3
 		},
 		{
 			"book": "Habacuc",
-			"alias": "HAB"
+			"alias": "HAB",
+			"chapters": 3
 		},
 		{
 			"book": "Habaquq",
-			"alias": "HAB"
+			"alias": "HAB",
+			"chapters": 3
 		},
 		{
 			"book": "Sophonie",
-			"alias": "ZEP"
+			"alias": "ZEP",
+			"chapters": 3
 		},
 		{
 			"book": "Aggée",
-			"alias": "HAG"
+			"alias": "HAG",
+			"chapters": 2
 		},
 		{
 			"book": "Zacharie",
-			"alias": "ZEC"
+			"alias": "ZEC",
+			"chapters": 14
 		},
 		{
 			"book": "Zakarie",
-			"alias": "ZEC"
+			"alias": "ZEC",
+			"chapters": 14
 		},
 		{
 			"book": "Malachie",
-			"alias": "MAL"
+			"alias": "MAL",
+			"chapters": 4
 		},
 		{
 			"book": "Matthieu",
-			"alias": "MAT"
+			"alias": "MAT",
+			"chapters": 28
 		},
 		{
 			"book": "Marc",
-			"alias": "MRK"
+			"alias": "MRK",
+			"chapters": 16
 		},
 		{
 			"book": "Luc",
-			"alias": "LUK"
+			"alias": "LUK",
+			"chapters": 24
 		},
 		{
 			"book": "Jean",
-			"alias": "JHN"
+			"alias": "JHN",
+			"chapters": 21
 		},
 		{
 			"book": "Actes",
-			"alias": "ACT"
+			"alias": "ACT",
+			"chapters": 28
 		},
 		{
 			"book": "Romains",
-			"alias": "ROM"
+			"alias": "ROM",
+			"chapters": 16
 		},
 		{
 			"book": "1 Corinthiens",
-			"alias": "1CO"
+			"alias": "1CO",
+			"chapters": 16
 		},
 		{
 			"book": "2 Corinthiens",
-			"alias": "2CO"
+			"alias": "2CO",
+			"chapters": 13
 		},
 		{
 			"book": "Galates",
-			"alias": "GAL"
+			"alias": "GAL",
+			"chapters": 6
 		},
 		{
 			"book": "Ephésiens",
-			"alias": "EPH"
+			"alias": "EPH",
+			"chapters": 6
 		},
 		{
 			"book": "Philippiens",
-			"alias": "PHP"
+			"alias": "PHP",
+			"chapters": 4
 		},
 		{
 			"book": "Colossiens",
-			"alias": "COL"
+			"alias": "COL",
+			"chapters": 4
 		},
 		{
 			"book": "1 Thessaloniciens",
-			"alias": "1TH"
+			"alias": "1TH",
+			"chapters": 5
 		},
 		{
 			"book": "2 Thessaloniciens",
-			"alias": "2TH"
+			"alias": "2TH",
+			"chapters": 3
 		},
 		{
 			"book": "1 Timothée",
-			"alias": "1TI"
+			"alias": "1TI",
+			"chapters": 6
 		},
 		{
 			"book": "2 Timothée",
-			"alias": "2TI"
+			"alias": "2TI",
+			"chapters": 4
 		},
 		{
 			"book": "Tite",
-			"alias": "TIT"
+			"alias": "TIT",
+			"chapters": 3
 		},
 		{
 			"book": "Philémon",
-			"alias": "PHM"
+			"alias": "PHM",
+			"chapters": 1
 		},
 		{
 			"book": "Hébreux",
-			"alias": "HEB"
+			"alias": "HEB",
+			"chapters": 13
 		},
 		{
 			"book": "Jacques",
-			"alias": "JAS"
+			"alias": "JAS",
+			"chapters": 5
 		},
 		{
 			"book": "1 Pierre",
-			"alias": "1PE"
+			"alias": "1PE",
+			"chapters": 5
 		},
 		{
 			"book": "2 Pierre",
-			"alias": "2PE"
+			"alias": "2PE",
+			"chapters": 3
 		},
 		{
 			"book": "1 Jean",
-			"alias": "1JN"
+			"alias": "1JN",
+			"chapters": 5
 		},
 		{
 			"book": "2 Jean",
-			"alias": "2JN"
+			"alias": "2JN",
+			"chapters": 1
 		},
 		{
 			"book": "3 Jean",
-			"alias": "3JN"
+			"alias": "3JN",
+			"chapters": 1
 		},
 		{
 			"book": "Jude",
-			"alias": "JUD"
+			"alias": "JUD",
+			"chapters": 1
 		},
 		{
 			"book": "Apocalypse",
-			"alias": "REV"
+			"alias": "REV",
+			"chapters": 22
 		}
 	]
 }
