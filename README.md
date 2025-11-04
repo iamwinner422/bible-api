@@ -54,6 +54,7 @@ You can also get a verse or entire chapter using the following endpoint:
 ```
 GET /verse?book=John&chapter=3&verses=16
 ```
+### Query Parameters
 
 | Parameter | Type   | Required | Description | Default Value |
 |-----------|--------|----------|-------------|---------------|
@@ -65,6 +66,7 @@ GET /verse?book=John&chapter=3&verses=16
 
 
 ### Example response:
+
 ```json
 {
   "citation": "John 3:16 (KJV)",
