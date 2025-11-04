@@ -6,6 +6,7 @@ export enum Languages {
 export interface VersionInfo {
 	id: number;
 	name: string;
+	language?: string
 }
 
 export interface BookInfo {
@@ -42,15 +43,5 @@ export interface FullChapter {
 	citation: string;
 }
 
-export const defaultVersion: { [key: string]: VersionInfo } = {
-	en: {
-		id: 1,
-		name: 'KJV',
-	},
-	fr: {
-		id: 93,
-		name: 'LSG',
-	},
-};
-
 export const APOCRYPHE_BOOKS_ALIASES = [ 'TOB', 'JDT', 'ESG', '1MA', '2MA', 'WIS', 'SIR', 'BAR', 'LJE'];
+export const VERSIONS_WITH_APOCRYPHE_BOOKS = ['PDV2017', 'BCC1923'];

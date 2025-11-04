@@ -2,6 +2,7 @@ import {
 	BadRequestException,
 	Injectable,
 	InternalServerErrorException,
+	Logger,
 } from '@nestjs/common';
 import { GetVerseDto } from './dto/get-verse.dto';
 import {
@@ -13,7 +14,14 @@ import { GetRandomVerseDto } from './dto/get-random-verse.dto';
 import { fetchVerses } from '../core/utils/verse.utils';
 import { getBookInfo, getVersionInfo, getVersionInfoStandlone } from '../core/utils/db.utils';
 import books from '../core/db/books.json';
-import { APOCRYPHE_BOOKS_ALIASES, BookInfo, FullChapter, Languages, VersionInfo } from '../core/types';
+import {
+	APOCRYPHE_BOOKS_ALIASES,
+	BookInfo,
+	FullChapter,
+	Languages,
+	VersionInfo,
+	VERSIONS_WITH_APOCRYPHE_BOOKS
+} from '../core/types';
 import { getRandomIntInclusive } from '../core/utils';
 
 
@@ -50,27 +58,24 @@ export class VerseService {
 
 	async getRandomVerse(randomVerseDto: GetRandomVerseDto) {
 		const { language, version } = randomVerseDto;
-		const finalLanguage = this.getFinalLanguage(language);
+		let finalLanguage = this.getFinalLanguage(language);
 		const finalVersion = this.getFinalVersion(version, finalLanguage)
 
 		if(!finalVersion){
 			return new BadRequestException('Provided version not found');
 		}
 
-		// GET RANDOM BOOK
-		const languageBooks = books[finalLanguage] as BookInfo[];
-		let randomBookIndex = getRandomIntInclusive(0, languageBooks.length - 1);
-		let selectedBook = languageBooks[randomBookIndex];
+		// SET THE VERSION FROM FOUNDED VERSION
+		finalLanguage = finalVersion.language || finalLanguage
 
-		if(finalVersion.name === 'LSG' && APOCRYPHE_BOOKS_ALIASES.includes(selectedBook.alias)) {
-			randomBookIndex = getRandomIntInclusive(0, languageBooks.length - 1)
-			selectedBook = languageBooks[randomBookIndex]
-		} //SKIPPING ALL APOCRYPHE BOOKS WHEN IT IS LSG VERSION
+		// GET RANDOM BOOK
+		const selectedBook = this.getRandomBook(finalLanguage, finalVersion);
 
 		// GET RANDOM CHAPTHER
 		const selectedChapter = getRandomIntInclusive(1, selectedBook.chapters);
 
 		const URL = `${BIBLE_APP_URL}/${finalVersion.id}/${selectedBook.alias}.${selectedChapter}`;
+		Logger.log(URL)
 
 		const fetchedVerses = await fetchVerses(URL, selectedBook.book, selectedChapter.toString(), '-1', finalVersion.name) as FullChapter ;
 
@@ -105,5 +110,19 @@ export class VerseService {
 
 	}
 
+	private getRandomBook(language: string, version: VersionInfo): BookInfo {
+		const languageBooks = books[language] as BookInfo[];
+		let randomBookIndex = getRandomIntInclusive(0, languageBooks.length - 1);
+		let selectedBook = languageBooks[randomBookIndex];
 
+		// SKIP APOCRYPHE BOOKS WHEN THE VERSION DOESN'T CONTAIN THEM
+		while (
+			!VERSIONS_WITH_APOCRYPHE_BOOKS.includes(version.name) &&
+			APOCRYPHE_BOOKS_ALIASES.includes(selectedBook.alias)
+		) {
+			randomBookIndex = getRandomIntInclusive(0, languageBooks.length - 1);
+			selectedBook = languageBooks[randomBookIndex];
+		}
+		return selectedBook;
+	}
 }

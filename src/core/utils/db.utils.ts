@@ -21,7 +21,7 @@ export const getVersionInfoStandlone = (version: string): VersionInfo | undefine
 			(versionInfo: VersionInfo) => versionInfo.name.toLowerCase() === version.toLowerCase()
 		);
 
-		return found;
+		if (found) return { ...found, language };
 	}
 
 	return undefined;
