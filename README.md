@@ -42,12 +42,18 @@ GET /verse/random?version=LSG&language=fr
 
 ```json
 {
-  "citation": "Psalms 23:1 (LSG)",
-  "passage": "The Lord is my shepherd; I shall not want."
+  "citation": "Psaumes 23:1 (LSG)",
+  "passage": "L’Éternel est mon berger: je ne manquerai de rien."
 }
 ```
 
-## API Parameters
+## Get a specified Bible Verse or Chapter
+
+You can also get a verse or entire chapter using the following endpoint:
+
+```
+GET /verse?book=John&chapter=3&verses=16
+```
 
 | Parameter | Type   | Required | Description | Default Value |
 |-----------|--------|----------|-------------|---------------|
@@ -57,13 +63,8 @@ GET /verse/random?version=LSG&language=fr
 | version   | string | No       | Bible version (see table below) | `KJV` (en), `LSG` (fr) |
 | language  | string | No       | Language (`en` or `fr`) | `en` |
 
-## Usage
 
-```
-GET /verse?book=John&chapter=3&verses=16
-```
-
-Example response:
+### Example response:
 ```json
 {
   "citation": "John 3:16 (KJV)",
