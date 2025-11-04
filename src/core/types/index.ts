@@ -53,3 +53,4 @@ export const defaultVersion: { [key: string]: VersionInfo } = {
 	},
 };
 
+export const APOCRYPHE_BOOKS_ALIASES = [ 'TOB', 'JDT', 'ESG', '1MA', '2MA', 'WIS', 'SIR', 'BAR', 'LJE'];

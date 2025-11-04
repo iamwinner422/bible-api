@@ -13,7 +13,7 @@ import { GetRandomVerseDto } from './dto/get-random-verse.dto';
 import { fetchVerses } from '../core/utils/verse.utils';
 import { getBookInfo, getVersionInfo, getVersionInfoStandlone } from '../core/utils/db.utils';
 import books from '../core/db/books.json';
-import { BookInfo, FullChapter, Languages, VersionInfo } from '../core/types';
+import { APOCRYPHE_BOOKS_ALIASES, BookInfo, FullChapter, Languages, VersionInfo } from '../core/types';
 import { getRandomIntInclusive } from '../core/utils';
 
 
@@ -62,17 +62,15 @@ export class VerseService {
 		let randomBookIndex = getRandomIntInclusive(0, languageBooks.length - 1);
 		let selectedBook = languageBooks[randomBookIndex];
 
-		if(selectedBook.book.includes('Grec')) {
+		if(finalVersion.name === 'LSG' && APOCRYPHE_BOOKS_ALIASES.includes(selectedBook.alias)) {
 			randomBookIndex = getRandomIntInclusive(0, languageBooks.length - 1)
 			selectedBook = languageBooks[randomBookIndex]
-		} //SKIPPING ESTHER GREC
+		} //SKIPPING ALL APOCRYPHE BOOKS WHEN IT IS LSG VERSION
 
 		// GET RANDOM CHAPTHER
 		const selectedChapter = getRandomIntInclusive(1, selectedBook.chapters);
 
 		const URL = `${BIBLE_APP_URL}/${finalVersion.id}/${selectedBook.alias}.${selectedChapter}`;
-
-		console.log(URL);
 
 		const fetchedVerses = await fetchVerses(URL, selectedBook.book, selectedChapter.toString(), '-1', finalVersion.name) as FullChapter ;
 
