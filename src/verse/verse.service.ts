@@ -23,6 +23,7 @@ import {
 	VERSIONS_WITH_APOCRYPHE_BOOKS
 } from '../core/types';
 import { getRandomIntInclusive } from '../core/utils';
+import { TodayVerseDto } from './dto/today-verse.dto';
 
 
 @Injectable()
@@ -91,6 +92,9 @@ export class VerseService {
 		}
 	}
 
+	getTodayVerse(todayVerseDto: TodayVerseDto){
+		const { language } = todayVerseDto;
+	}
 	private getFinalLanguage(providedLanguage: string | undefined): string {
 		return providedLanguage ? (!SUPPORTED_LANGUAGES.includes(providedLanguage)) ? Languages.EN : providedLanguage : Languages.EN;
 	}
