@@ -11,14 +11,18 @@ import {
 	SUPPORTED_LANGUAGES,
 } from '../core/constants';
 import { GetRandomVerseDto } from './dto/get-random-verse.dto';
-import { fetchVerses, getFinalLanguage } from '../core/utils/verse.utils';
+import {
+	fetchTodayVerse,
+	fetchVerses,
+	getFinalLanguage,
+} from '../core/utils/verse.utils';
 import {
 	getBookInfo,
 	getFinalVersion,
 	getRandomBook,
 	getVersionInfo,
 } from '../core/utils/db.utils';
-import { FullChapter } from '../core/types';
+import { FinalResponse, FullChapter } from '../core/types';
 import { getRandomIntInclusive } from '../core/utils';
 import { TodayVerseDto } from './dto/today-verse.dto';
 
@@ -72,8 +76,8 @@ export class VerseService {
 		// GET RANDOM CHAPTER
 		const selectedChapter = getRandomIntInclusive(1, selectedBook.chapters);
 
-		const URL = `${BIBLE_APP_URL}/${finalVersion.id}/${selectedBook.alias}.${selectedChapter}`;
-		Logger.log(URL)
+		const URL = `${BIBLE_APP_URL}/bible/${finalVersion.id}/${selectedBook.alias}.${selectedChapter}`;
+		Logger.log(URL);
 
 		const fetchedVerses = await fetchVerses(URL, selectedBook.book, selectedChapter.toString(), '-1', finalVersion.name) as FullChapter ;
 
@@ -89,8 +93,17 @@ export class VerseService {
 		}
 	}
 
-	getTodayVerse(todayVerseDto: TodayVerseDto){
+	async getTodayVerse(todayVerseDto: TodayVerseDto): Promise<FinalResponse | BadRequestException> {
 		const { language } = todayVerseDto;
+		const URL = `${BIBLE_APP_URL}/${language}/verse-of-the-day`;
+		try {
+			Logger.log(URL);
+			return await fetchTodayVerse(URL) as FinalResponse;
+		}
+		catch (error) {
+			console.log(error);
+			return new BadRequestException('Can\'t get today verse');
+		}
 	}
 
 }

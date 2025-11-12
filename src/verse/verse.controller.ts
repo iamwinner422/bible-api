@@ -32,7 +32,7 @@ export class VerseController {
 		return this.verseService.getVerse(query);
 	}
 
-	@Get('/random')
+	@Get('random')
 	@ApiResponse({
 		status: HttpStatus.OK,
 		schema: {
@@ -47,7 +47,7 @@ export class VerseController {
 		return await this.verseService.getRandomVerse(query);
 	}
 
-	@Get('today-verse')
+	@Get('today')
 	@ApiResponse({
 		status: HttpStatus.OK,
 		schema: {
