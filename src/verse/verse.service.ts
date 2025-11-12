@@ -16,6 +16,7 @@ import {
 	fetchVerses,
 	getFinalLanguage,
 } from '../core/utils/verse.utils';
+import { CacheService } from '../core/services/cache.service';
 import {
 	getBookInfo,
 	getFinalVersion,
@@ -29,6 +30,7 @@ import { TodayVerseDto } from './dto/today-verse.dto';
 
 @Injectable()
 export class VerseService {
+	constructor(private cacheService: CacheService) {}
 	getVerse(verseDto: GetVerseDto) {
 		const { book, chapter, verses, version, language } = verseDto;
 		try {
@@ -95,10 +97,20 @@ export class VerseService {
 
 	async getTodayVerse(todayVerseDto: TodayVerseDto): Promise<FinalResponse | BadRequestException> {
 		const { language } = todayVerseDto;
-		const URL = `${BIBLE_APP_URL}/${language}/verse-of-the-day`;
+		const finalLanguage = getFinalLanguage(language);
+		const cacheKey = `today:${finalLanguage}`;
+
+		const cached = this.cacheService.get<FinalResponse>(cacheKey);
+		if (cached) return cached;
+
+		const URL = `${BIBLE_APP_URL}/${finalLanguage}/verse-of-the-day`;
 		try {
 			Logger.log(URL);
-			return await fetchTodayVerse(URL) as FinalResponse;
+
+			const result = await fetchTodayVerse(URL) as FinalResponse;
+			this.cacheService.set(cacheKey, result);
+
+			return result;
 		}
 		catch (error) {
 			console.log(error);

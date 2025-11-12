@@ -58,9 +58,7 @@ export class VerseController {
 			}
 		},
 	})
-	getTodayVerse(@Query() query: TodayVerseDto) {
-		return this.verseService.getTodayVerse(query);
+	async getTodayVerse(@Query() query: TodayVerseDto) {
+		return await this.verseService.getTodayVerse(query);
 	}
-
-
 }
