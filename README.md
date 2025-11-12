@@ -47,6 +47,38 @@ GET /verse/random?version=LSG&language=fr
 }
 ```
 
+## Get Today's Verse (Verse of the Day)
+
+You can retrieve Youversion daily verse for a specific language using the following endpoint:
+
+```
+GET /verse/today
+```
+
+### Query Parameters
+
+| Parameter | Type   | Required | Description |
+|-----------|--------|----------|-------------|
+| language  | string | No       | Language code (any language supported by Youversion Bible). |
+
+- The API returns the verse selected for the current day by YouVersion for the given language.
+- Responses for the same language are cached in-memory and will expire automatically at local midnight. This means repeated calls on the same day will return the cached result; a fresh fetch is performed after midnight.
+
+### Example Request
+
+```
+GET /verse/today?language=en
+```
+
+### Example Response
+
+```json
+{
+  "citation": "Psalms 23:1 (KJV)",
+  "passage": "The Lord is my shepherd; I shall not want."
+}
+```
+
 ## Get a specified Bible Verse or Chapter
 
 You can also get a verse or entire chapter using the following endpoint:

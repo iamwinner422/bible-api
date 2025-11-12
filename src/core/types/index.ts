@@ -33,6 +33,9 @@ export interface NextData {
 					human: string;
 				};
 			}>;
+			versionData?: {
+				abbreviation: string;
+			}
 		};
 	};
 }
@@ -41,6 +44,11 @@ export interface FullChapter {
 	title: string;
 	verses: Record<number, string>;
 	citation: string;
+}
+
+export interface FinalResponse {
+	citation: string;
+	passage: string;
 }
 
 export const APOCRYPHE_BOOKS_ALIASES = [ 'TOB', 'JDT', 'ESG', '1MA', '2MA', 'WIS', 'SIR', 'BAR', 'LJE'];

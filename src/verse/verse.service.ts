@@ -11,22 +11,26 @@ import {
 	SUPPORTED_LANGUAGES,
 } from '../core/constants';
 import { GetRandomVerseDto } from './dto/get-random-verse.dto';
-import { fetchVerses } from '../core/utils/verse.utils';
-import { getBookInfo, getVersionInfo, getVersionInfoStandlone } from '../core/utils/db.utils';
-import books from '../core/db/books.json';
 import {
-	APOCRYPHE_BOOKS_ALIASES,
-	BookInfo,
-	FullChapter,
-	Languages,
-	VersionInfo,
-	VERSIONS_WITH_APOCRYPHE_BOOKS
-} from '../core/types';
+	fetchTodayVerse,
+	fetchVerses,
+	getFinalLanguage,
+} from '../core/utils/verse.utils';
+import { CacheService } from '../core/services/cache.service';
+import {
+	getBookInfo,
+	getFinalVersion,
+	getRandomBook,
+	getVersionInfo,
+} from '../core/utils/db.utils';
+import { FinalResponse, FullChapter } from '../core/types';
 import { getRandomIntInclusive } from '../core/utils';
+import { TodayVerseDto } from './dto/today-verse.dto';
 
 
 @Injectable()
 export class VerseService {
+	constructor(private cacheService: CacheService) {}
 	getVerse(verseDto: GetVerseDto) {
 		const { book, chapter, verses, version, language } = verseDto;
 		try {
@@ -58,8 +62,8 @@ export class VerseService {
 
 	async getRandomVerse(randomVerseDto: GetRandomVerseDto) {
 		const { language, version } = randomVerseDto;
-		let finalLanguage = this.getFinalLanguage(language);
-		const finalVersion = this.getFinalVersion(version, finalLanguage)
+		let finalLanguage = getFinalLanguage(language);
+		const finalVersion = getFinalVersion(version, finalLanguage)
 
 		if(!finalVersion){
 			return new BadRequestException('Provided version not found');
@@ -69,13 +73,13 @@ export class VerseService {
 		finalLanguage = finalVersion.language || finalLanguage
 
 		// GET RANDOM BOOK
-		const selectedBook = this.getRandomBook(finalLanguage, finalVersion);
+		const selectedBook = getRandomBook(finalLanguage, finalVersion);
 
-		// GET RANDOM CHAPTHER
+		// GET RANDOM CHAPTER
 		const selectedChapter = getRandomIntInclusive(1, selectedBook.chapters);
 
-		const URL = `${BIBLE_APP_URL}/${finalVersion.id}/${selectedBook.alias}.${selectedChapter}`;
-		Logger.log(URL)
+		const URL = `${BIBLE_APP_URL}/bible/${finalVersion.id}/${selectedBook.alias}.${selectedChapter}`;
+		Logger.log(URL);
 
 		const fetchedVerses = await fetchVerses(URL, selectedBook.book, selectedChapter.toString(), '-1', finalVersion.name) as FullChapter ;
 
@@ -91,38 +95,27 @@ export class VerseService {
 		}
 	}
 
-	private getFinalLanguage(providedLanguage: string | undefined): string {
-		return providedLanguage ? (!SUPPORTED_LANGUAGES.includes(providedLanguage)) ? Languages.EN : providedLanguage : Languages.EN;
-	}
+	async getTodayVerse(todayVerseDto: TodayVerseDto): Promise<FinalResponse | BadRequestException> {
+		const { language } = todayVerseDto;
+		const finalLanguage = getFinalLanguage(language);
+		const cacheKey = `today:${finalLanguage}`;
 
-	private getFinalVersion(providedVersion: string | undefined, language: string): VersionInfo | undefined {
-		if(providedVersion){
-			const finalVersion = getVersionInfo(providedVersion, language);
+		const cached = this.cacheService.get<FinalResponse>(cacheKey);
+		if (cached) return cached;
 
-			if(!finalVersion){
-				return getVersionInfoStandlone(providedVersion)
-			}
+		const URL = `${BIBLE_APP_URL}/${finalLanguage}/verse-of-the-day`;
+		try {
+			Logger.log(URL);
 
-			return finalVersion;
-		}else{
-			return DEFAULT_VERSIONS[language]
+			const result = await fetchTodayVerse(URL) as FinalResponse;
+			this.cacheService.set(cacheKey, result);
+
+			return result;
 		}
-
-	}
-
-	private getRandomBook(language: string, version: VersionInfo): BookInfo {
-		const languageBooks = books[language] as BookInfo[];
-		let randomBookIndex = getRandomIntInclusive(0, languageBooks.length - 1);
-		let selectedBook = languageBooks[randomBookIndex];
-
-		// SKIP APOCRYPHE BOOKS WHEN THE VERSION DOESN'T CONTAIN THEM
-		while (
-			!VERSIONS_WITH_APOCRYPHE_BOOKS.includes(version.name) &&
-			APOCRYPHE_BOOKS_ALIASES.includes(selectedBook.alias)
-		) {
-			randomBookIndex = getRandomIntInclusive(0, languageBooks.length - 1);
-			selectedBook = languageBooks[randomBookIndex];
+		catch (error) {
+			console.log(error);
+			return new BadRequestException('Can\'t get today verse');
 		}
-		return selectedBook;
 	}
+
 }

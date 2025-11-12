@@ -1,6 +1,6 @@
 import { Languages, VersionInfo } from "../types";
 
-export const BIBLE_APP_URL = 'https://www.bible.com/bible';
+export const BIBLE_APP_URL = 'https://www.bible.com';
 
 export const DEFAULT_VERSIONS: { [key: string]: VersionInfo } = {
 	en: {
