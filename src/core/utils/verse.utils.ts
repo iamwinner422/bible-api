@@ -1,7 +1,13 @@
-import { NextData, Verse } from '../types';
+import { Languages, NextData, Verse } from '../types';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { cleanText } from './index';
+import { SUPPORTED_LANGUAGES } from '../constants';
+
+
+export const getFinalLanguage = (providedLanguage: string | undefined): string => {
+	return providedLanguage ? (!SUPPORTED_LANGUAGES.includes(providedLanguage)) ? Languages.EN : providedLanguage : Languages.EN;
+}
 
 export const fetchVerses = async (
 	url: string,

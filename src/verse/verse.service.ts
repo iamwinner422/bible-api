@@ -11,17 +11,14 @@ import {
 	SUPPORTED_LANGUAGES,
 } from '../core/constants';
 import { GetRandomVerseDto } from './dto/get-random-verse.dto';
-import { fetchVerses } from '../core/utils/verse.utils';
-import { getBookInfo, getVersionInfo, getVersionInfoStandlone } from '../core/utils/db.utils';
-import books from '../core/db/books.json';
+import { fetchVerses, getFinalLanguage } from '../core/utils/verse.utils';
 import {
-	APOCRYPHE_BOOKS_ALIASES,
-	BookInfo,
-	FullChapter,
-	Languages,
-	VersionInfo,
-	VERSIONS_WITH_APOCRYPHE_BOOKS
-} from '../core/types';
+	getBookInfo,
+	getFinalVersion,
+	getRandomBook,
+	getVersionInfo,
+} from '../core/utils/db.utils';
+import { FullChapter } from '../core/types';
 import { getRandomIntInclusive } from '../core/utils';
 import { TodayVerseDto } from './dto/today-verse.dto';
 
@@ -59,8 +56,8 @@ export class VerseService {
 
 	async getRandomVerse(randomVerseDto: GetRandomVerseDto) {
 		const { language, version } = randomVerseDto;
-		let finalLanguage = this.getFinalLanguage(language);
-		const finalVersion = this.getFinalVersion(version, finalLanguage)
+		let finalLanguage = getFinalLanguage(language);
+		const finalVersion = getFinalVersion(version, finalLanguage)
 
 		if(!finalVersion){
 			return new BadRequestException('Provided version not found');
@@ -70,9 +67,9 @@ export class VerseService {
 		finalLanguage = finalVersion.language || finalLanguage
 
 		// GET RANDOM BOOK
-		const selectedBook = this.getRandomBook(finalLanguage, finalVersion);
+		const selectedBook = getRandomBook(finalLanguage, finalVersion);
 
-		// GET RANDOM CHAPTHER
+		// GET RANDOM CHAPTER
 		const selectedChapter = getRandomIntInclusive(1, selectedBook.chapters);
 
 		const URL = `${BIBLE_APP_URL}/${finalVersion.id}/${selectedBook.alias}.${selectedChapter}`;
@@ -95,38 +92,5 @@ export class VerseService {
 	getTodayVerse(todayVerseDto: TodayVerseDto){
 		const { language } = todayVerseDto;
 	}
-	private getFinalLanguage(providedLanguage: string | undefined): string {
-		return providedLanguage ? (!SUPPORTED_LANGUAGES.includes(providedLanguage)) ? Languages.EN : providedLanguage : Languages.EN;
-	}
 
-	private getFinalVersion(providedVersion: string | undefined, language: string): VersionInfo | undefined {
-		if(providedVersion){
-			const finalVersion = getVersionInfo(providedVersion, language);
-
-			if(!finalVersion){
-				return getVersionInfoStandlone(providedVersion)
-			}
-
-			return finalVersion;
-		}else{
-			return DEFAULT_VERSIONS[language]
-		}
-
-	}
-
-	private getRandomBook(language: string, version: VersionInfo): BookInfo {
-		const languageBooks = books[language] as BookInfo[];
-		let randomBookIndex = getRandomIntInclusive(0, languageBooks.length - 1);
-		let selectedBook = languageBooks[randomBookIndex];
-
-		// SKIP APOCRYPHE BOOKS WHEN THE VERSION DOESN'T CONTAIN THEM
-		while (
-			!VERSIONS_WITH_APOCRYPHE_BOOKS.includes(version.name) &&
-			APOCRYPHE_BOOKS_ALIASES.includes(selectedBook.alias)
-		) {
-			randomBookIndex = getRandomIntInclusive(0, languageBooks.length - 1);
-			selectedBook = languageBooks[randomBookIndex];
-		}
-		return selectedBook;
-	}
 }
