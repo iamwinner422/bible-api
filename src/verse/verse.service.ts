@@ -23,7 +23,7 @@ import {
 	getRandomBook,
 	getVersionInfo,
 } from '../core/utils/db.utils';
-import { FinalResponse, FullChapter } from '../core/types';
+import { FinalResponse, FullChapter, Languages } from '../core/types';
 import { getRandomIntInclusive } from '../core/utils';
 import { TodayVerseDto } from './dto/today-verse.dto';
 
@@ -96,8 +96,15 @@ export class VerseService {
 	}
 
 	async getTodayVerse(todayVerseDto: TodayVerseDto): Promise<FinalResponse | BadRequestException> {
+		let finalLanguage: string;
 		const { language } = todayVerseDto;
-		const finalLanguage = getFinalLanguage(language);
+
+		if(!language) {
+			finalLanguage = Languages.EN;
+		}else{
+			finalLanguage = language;
+		}
+
 		const cacheKey = `today:${finalLanguage}`;
 
 		const cached = this.cacheService.get<FinalResponse>(cacheKey);
