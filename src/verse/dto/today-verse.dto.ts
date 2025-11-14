@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class TodayVerseDto {
 	@ApiProperty({
@@ -7,5 +7,6 @@ export class TodayVerseDto {
 		example: 'en',
 	})
 	@IsString()
-	language: string;
+	@IsOptional()
+	language?: string;
 }
