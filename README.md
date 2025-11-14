@@ -61,7 +61,7 @@ GET /verse/today
 |-----------|--------|----------|-------------|
 | language  | string | No       | Language code (any language supported by Youversion Bible). |
 
-- The API returns the verse selected for the current day by YouVersion for the given language.
+- The API returns the verse selected for the current day by YouVersion for the given language. If any language is not provided the API will use English as default language.
 - Responses for the same language are cached in-memory and will expire automatically at local midnight. This means repeated calls on the same day will return the cached result; a fresh fetch is performed after midnight.
 
 ### Example Request
