@@ -69,7 +69,7 @@ export class CacheService implements OnModuleInit, OnModuleDestroy {
         this.clearAll();
       } finally {
         // schedule subsequent clears every 24h
-        this.midnightTimer = setInterval(() => this.clearAll(), 24 * 60 * 60 * 1000) as unknown as NodeJS.Timeout;
+        this.midnightTimer = setInterval(() => this.clearAll(), 24 * 60 * 60 * 1000);
       }
     }, delay);
   }
