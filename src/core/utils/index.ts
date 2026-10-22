@@ -15,3 +15,11 @@ export const getRandomIntInclusive = (min: number, max: number): number => {
 	max = Math.floor(max);
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+
+export const getSecondsUntilMidnight = (now: Date = new Date()): number => {
+	const midnight = new Date(now);
+	midnight.setDate(now.getDate() + 1);
+	midnight.setHours(0, 0, 0, 0);
+	return Math.max(1, Math.floor((midnight.getTime() - now.getTime()) / 1000));
+}

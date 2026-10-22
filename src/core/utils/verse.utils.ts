@@ -11,16 +11,39 @@ const CITATION_REGEX = /^.+ \([^()]+\)$/;
 // cleanText would turn "3:16" into "3: 16", so references only get their whitespace collapsed
 const cleanReference = (text: string): string => text.replace(/\s+/g, ' ').trim();
 
-const fetchFromUrl = async (url: string): Promise<string> => {
-	const { data } = await axios.get<string>(url, {
-		timeout: 8000,
-		headers: {
-			'User-Agent':
-				'Mozilla/5.0 (Windows NT 11.00; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0',
-		},
-	});
-	return data;
+const REQUEST_TIMEOUT_MS = 4000;
+const MAX_ATTEMPTS = 2;
+
+const isRetryable = (err: unknown): boolean => {
+	const { response } = err as { response?: { status: number } };
+	return !response || response.status >= 500;
 }
+
+const fetchFromUrl = async (url: string, attempt = 1): Promise<string> => {
+	try {
+		const { data } = await axios.get<string>(url, {
+			timeout: REQUEST_TIMEOUT_MS,
+			headers: {
+				'User-Agent':
+					'Mozilla/5.0 (Windows NT 11.00; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0',
+			},
+		});
+		return data;
+	} catch (err) {
+		if (attempt < MAX_ATTEMPTS && isRetryable(err)) return fetchFromUrl(url, attempt + 1);
+		throw err;
+	}
+}
+
+
+const extractMain = (html: string): string => {
+	const start = html.indexOf('<main');
+	const end = html.indexOf('</main>', start);
+	return start !== -1 && end !== -1 ? html.slice(start, end + '</main>'.length) : html;
+}
+
+const loadPage = async (url: string): Promise<cheerio.CheerioAPI> =>
+	cheerio.load(extractMain(await fetchFromUrl(url)));
 
 export const getFinalLanguage = (providedLanguage: string | undefined): string => {
 	return providedLanguage ? (!SUPPORTED_LANGUAGES.includes(providedLanguage)) ? Languages.EN : providedLanguage : Languages.EN;
@@ -74,8 +97,7 @@ export const fetchVerses = async (
 ): Promise<any> => {
 	try {
 
-		const data = await fetchFromUrl(url);
-		const $ = cheerio.load(data);
+		const $ = await loadPage(url);
 
 		if ($("main p:contains('No Available Verses')").length) {
 			throw new Error('Verses not found');
@@ -119,8 +141,7 @@ export const fetchVerses = async (
 
 export const fetchTodayVerse = async (url: string): Promise<any> => {
 	try {
-		const data = await fetchFromUrl(url);
-		const $ = cheerio.load(data);
+		const $ = await loadPage(url);
 
 		// THE CITATION LINK READS LIKE "Ruth 1:16 (NIV)"; THE PASSAGE LINK SHARES ITS href
 		const citationLink = $('main a')
