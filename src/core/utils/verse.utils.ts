@@ -1,8 +1,15 @@
-import { Languages, NextData, Verse } from '../types';
+import { Languages, Verse } from '../types';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { cleanText } from './index';
 import { SUPPORTED_LANGUAGES } from '../constants';
+
+// bible.com hashes its CSS module class names (e.g. "cat7xG_verse"), so match on the suffix only
+const CHAPTER_USFM_REGEX = /^[0-9A-Z]+\.\d+$/;
+const CITATION_REGEX = /^.+ \([^()]+\)$/;
+
+// cleanText would turn "3:16" into "3: 16", so references only get their whitespace collapsed
+const cleanReference = (text: string): string => text.replace(/\s+/g, ' ').trim();
 
 const fetchFromUrl = async (url: string): Promise<string> => {
 	const { data } = await axios.get<string>(url, {
@@ -19,6 +26,45 @@ export const getFinalLanguage = (providedLanguage: string | undefined): string =
 	return providedLanguage ? (!SUPPORTED_LANGUAGES.includes(providedLanguage)) ? Languages.EN : providedLanguage : Languages.EN;
 }
 
+const parseChapter = ($: cheerio.CheerioAPI): { title: string; verses: Verse[] } | undefined => {
+	const chapterEl = $('div[data-usfm]')
+		.filter((_, el) => CHAPTER_USFM_REGEX.test($(el).attr('data-usfm') ?? ''))
+		.first();
+	if (!chapterEl.length) return undefined;
+
+	const chapterUsfm = chapterEl.attr('data-usfm');
+
+	// SECTION HEADING, SKIPPING CROSS-REFERENCE HEADINGS ("_r" BLOCKS)
+	const title = cleanText(
+		chapterEl
+			.find('[class*="_heading"]')
+			.filter((_, el) => !/_r\b/.test($(el).parent().attr('class') ?? ''))
+			.first()
+			.text(),
+	);
+
+	chapterEl.find('[class*="_note"], [class*="_label"]').remove();
+
+	// A VERSE SPLIT ACROSS PARAGRAPHS APPEARS AS SEVERAL SPANS WITH THE SAME data-usfm
+	const versesMap = new Map<number, string>();
+	chapterEl.find(`[data-usfm^="${chapterUsfm}."]`).each((_, el) => {
+		// COMBINED VERSES LOOK LIKE "JHN.3.1+JHN.3.2"; KEEP THE FIRST NUMBER
+		const usfm = ($(el).attr('data-usfm') ?? '').split('+')[0];
+		const verseNumber = parseInt(usfm.split('.')[2], 10);
+		if (Number.isNaN(verseNumber)) return;
+
+		versesMap.set(verseNumber, `${versesMap.get(verseNumber) ?? ''} ${$(el).text()}`);
+	});
+
+	const verses: Verse[] = [];
+	versesMap.forEach((text, number) => {
+		const content = cleanText(text);
+		if (content) verses.push({ number, content });
+	});
+
+	return { title, verses };
+}
+
 export const fetchVerses = async (
 	url: string,
 	book: string,
@@ -31,81 +77,38 @@ export const fetchVerses = async (
 		const data = await fetchFromUrl(url);
 		const $ = cheerio.load(data);
 
-		if ($("p:contains('No Available Verses')").length) {
+		if ($("main p:contains('No Available Verses')").length) {
 			throw new Error('Verses not found');
 		}
 
-		const nextScript = $("script#__NEXT_DATA__").first();
-		if (nextScript.length) {
-			const json = JSON.parse(nextScript.html() || '') as NextData;
-
-			if (verses !== '-1') {
-				const verseData = json.props.pageProps.verses?.[0];
-				if (!verseData)
-					return new Error('Verse not found in JSON data.')
-
-				const passage = cleanText(cheerio.load(verseData.content).text());
-				const reference = verseData.reference.human;
-
-				return {
-					citation: `${reference} (${version})`,
-					passage,
-				};
-			}
-
-			const chapterHtml = json.props.pageProps.chapterInfo?.content;
-			if (!chapterHtml)
-				return new Error('Chapter content not found.')
-
-			const chapter$ = cheerio.load(chapterHtml);
-			const title =
-				chapter$('.heading').first().text().trim() ||
-				chapter$('.d').first().text().trim() ||
-				`${book} ${chapter}`;
-
-			const versesArray: Verse[] = [];
-			const paverses = chapterHtml.split(/<span class="label">\d+<\/span>/g);
-			const titleText = cheerio.load(paverses[0])('.heading').text();
-			paverses.shift();
-
-			paverses.forEach((verse: string, index: number) => {
-				const verseNumber = index + 1;
-				let verseText = cheerio.load(verse)('.content').text();
-
-				verseText = cleanText(verseText);
-				if (verseText)
-					versesArray.push({
-						number: verseNumber,
-						content: verseText,
-					});
-			});
-
-			const versesObj = versesArray.reduce(
-				(acc: Record<number, string>, verse) => {
-					acc[verse.number] = verse.content;
-					return acc;
-				},
-				{},
-			);
+		if (verses !== '-1') {
+			const reference = cleanReference($('main h1').first().text());
+			const passage = cleanText($('main p').first().text());
+			if (!passage)
+				return new Error('Verse not found in page.')
 
 			return {
-				title: `${titleText || title} (${version})`,
-				verses: versesObj,
-				citation: `${book} ${chapter} (${version})`,
+				citation: `${reference || `${book} ${chapter}:${verses}`} (${version})`,
+				passage,
 			};
 		}
 
-		const wrapper = $('.text-17');
-		const versesArray: string[] = [];
+		const chapterData = parseChapter($);
+		if (!chapterData || !chapterData.verses.length)
+			return new Error('Chapter content not found.')
 
-		wrapper.each((_, p) => {
-			const text = cleanText($(p).text());
-			if (text) versesArray.push(text);
-		});
+		const versesObj = chapterData.verses.reduce(
+			(acc: Record<number, string>, verse) => {
+				acc[verse.number] = verse.content;
+				return acc;
+			},
+			{},
+		);
 
 		return {
-			citation: `${book} ${chapter}:${verses} (${version})`,
-			passage: versesArray[0] || '',
+			title: `${chapterData.title || `${book} ${chapter}`} (${version})`,
+			verses: versesObj,
+			citation: `${book} ${chapter} (${version})`,
 		};
 	} catch (err) {
 		console.error('Error fetching or parsing verse:', err);
@@ -119,52 +122,31 @@ export const fetchTodayVerse = async (url: string): Promise<any> => {
 		const data = await fetchFromUrl(url);
 		const $ = cheerio.load(data);
 
-		const nextScript = $("script#__NEXT_DATA__").first();
-		if (nextScript.length) {
-			const json = JSON.parse(nextScript.html() || '') as NextData;
-			const pageProps = json.props.pageProps;
+		// THE CITATION LINK READS LIKE "Ruth 1:16 (NIV)"; THE PASSAGE LINK SHARES ITS href
+		const citationLink = $('main a')
+			.filter((_, a) => CITATION_REGEX.test(cleanReference($(a).text())))
+			.first();
+		const href = citationLink.attr('href');
 
-			if (pageProps.verses && pageProps.verses.length > 0) {
-				const firstVerse = pageProps.verses[0];
-				const verse = cleanText(firstVerse.content);
-				const reference = firstVerse.reference.human;
-				const version = pageProps.versionData?.abbreviation;
+		if (!href) {
+			console.log('Verse data not found in page.');
+			throw new Error('Today\'s verse not found');
+		}
 
-				return {
-					citation: `${reference} (${version})`,
-					passage: verse,
-				}
-			} else {
-				console.log('Verse data not found in JSON data.');
-				throw new Error('Today\'s verse not found');
-			}
-		}else {
-			const versesArray: string[] = [];
-			const citationsArray: Array<string> = [];
-			let version: string = '';
+		const passage = cleanText(
+			$('main a')
+				.filter((_, a) => $(a).attr('href') === href && !CITATION_REGEX.test(cleanReference($(a).text())))
+				.first()
+				.text(),
+		);
 
-			const verses = $("a.text-text-light.w-full.no-underline");
-			const citations = $("p.text-gray-25");
-			citations.each((i, p) => {
-				let citation = $(p).eq(0).text();
+		if (!passage) {
+			throw new Error('Today\'s verse not found');
+		}
 
-				version = citation.slice(-4).replace(/[()]/g, "");
-
-				citation = citation.slice(0, -6);
-
-				citationsArray.push(citation);
-			});
-
-			verses.each((i, p) => {
-				const unformattedVerse = $(p).eq(0).text();
-				const formattedVerse = cleanText(unformattedVerse);
-				versesArray.push(formattedVerse);
-			});
-
-			return {
-				citation: `${citationsArray[0]} (${version})`,
-				passage: versesArray[0],
-			}
+		return {
+			citation: cleanReference(citationLink.text()),
+			passage,
 		}
 	} catch (err) {
 		console.error('Error fetching or parsing verse:', err);
