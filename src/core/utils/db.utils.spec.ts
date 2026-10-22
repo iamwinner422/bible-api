@@ -43,6 +43,10 @@ describe('db.utils', () => {
 			expect(getBookInfo('jhn', 'en')).toEqual({ book: 'John', alias: 'JHN', chapters: 21 });
 		});
 
+		it('does not match a partial alias', () => {
+			expect(getBookInfo('JN', 'en')).toBeUndefined();
+		});
+
 		it('returns undefined for an unknown book', () => {
 			expect(getBookInfo('Unknown', 'en')).toBeUndefined();
 		});
