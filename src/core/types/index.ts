@@ -20,26 +20,6 @@ export interface Verse {
 	content: string;
 }
 
-export interface NextData {
-	props: {
-		pageProps: {
-			initialState?: any;
-			chapterInfo?: {
-				content: string;
-			};
-			verses?: Array<{
-				content: string;
-				reference: {
-					human: string;
-				};
-			}>;
-			versionData?: {
-				abbreviation: string;
-			}
-		};
-	};
-}
-
 export interface FullChapter {
 	title: string;
 	verses: Record<number, string>;

@@ -50,8 +50,8 @@ export class VerseService {
 
 			const URL =
 				verses == '-1'
-					? `${BIBLE_APP_URL}/${foundedVersion.id}/${foundedBook.alias}.${chapter}`
-					: `${BIBLE_APP_URL}/${foundedVersion.id}/${foundedBook.alias}.${chapter}.${verses}`;
+					? `${BIBLE_APP_URL}/bible/${foundedVersion.id}/${foundedBook.alias}.${chapter}`
+					: `${BIBLE_APP_URL}/bible/${foundedVersion.id}/${foundedBook.alias}.${chapter}.${verses}`;
 
 			return fetchVerses(URL, book, chapter, verses, foundVersionName);
 		} catch (error) {
@@ -83,9 +83,9 @@ export class VerseService {
 
 		const fetchedVerses = await fetchVerses(URL, selectedBook.book, selectedChapter.toString(), '-1', finalVersion.name) as FullChapter ;
 
-		// GET CHAPTER SIZE AND VERSE INDEX
-		const chapterSize = Object.keys(fetchedVerses.verses).length;
-		const selectedVerseIndex = getRandomIntInclusive(1, chapterSize);
+		// PICK AMONG THE VERSE NUMBERS ACTUALLY PRESENT (SOME VERSIONS SKIP OR MERGE VERSES)
+		const verseNumbers = Object.keys(fetchedVerses.verses).map(Number);
+		const selectedVerseIndex = verseNumbers[getRandomIntInclusive(0, verseNumbers.length - 1)];
 
 		const selectedVerse = fetchedVerses.verses[selectedVerseIndex]
 
