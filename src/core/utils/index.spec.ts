@@ -1,4 +1,4 @@
-import { cleanText, getRandomIntInclusive } from './index';
+import { cleanText, getRandomIntInclusive, getSecondsUntilMidnight } from './index';
 
 describe('utils', () => {
 	describe('cleanText', () => {
@@ -46,6 +46,20 @@ describe('utils', () => {
 
 			jest.spyOn(Math, 'random').mockReturnValue(0.9999);
 			expect(getRandomIntInclusive(1.2, 5.8)).toBe(5);
+		});
+	});
+
+	describe('getSecondsUntilMidnight', () => {
+		it('counts the seconds left until the next local midnight', () => {
+			expect(getSecondsUntilMidnight(new Date(2026, 9, 22, 23, 0, 0))).toBe(3600);
+		});
+
+		it('returns a full day right at midnight', () => {
+			expect(getSecondsUntilMidnight(new Date(2026, 9, 22, 0, 0, 0))).toBe(86400);
+		});
+
+		it('never returns 0', () => {
+			expect(getSecondsUntilMidnight(new Date(2026, 9, 22, 23, 59, 59, 999))).toBe(1);
 		});
 	});
 });

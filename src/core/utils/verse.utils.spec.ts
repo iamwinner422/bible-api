@@ -99,7 +99,7 @@ describe('verse.utils', () => {
 
 			const [calledUrl, config] = mockedAxios.get.mock.calls[0];
 			expect(calledUrl).toBe(URL);
-			expect(config?.timeout).toBe(8000);
+			expect(config?.timeout).toBe(4000);
 			expect(config?.headers?.['User-Agent']).toEqual(expect.stringContaining('Mozilla'));
 		});
 
@@ -142,10 +142,45 @@ describe('verse.utils', () => {
 			expect(result.citation).toBe('John 3:16 (KJV)');
 		});
 
-		it('rejects when the request fails', async () => {
-			mockedAxios.get.mockRejectedValueOnce(new Error('timeout of 8000ms exceeded'));
+		it('retries once after a timeout', async () => {
+			mockedAxios.get.mockRejectedValueOnce(new Error('timeout of 4000ms exceeded'));
+			mockPage(VERSE_PAGE);
+
+			const result = await fetchPassage(URL, 'John', '3', '16', 'KJV');
+
+			expect(result.citation).toBe('John 3:16 (KJV)');
+			expect(mockedAxios.get.mock.calls).toHaveLength(2);
+		});
+
+		it('retries once after a server error', async () => {
+			mockedAxios.get.mockRejectedValueOnce({ response: { status: 503 } });
+			mockPage(VERSE_PAGE);
+
+			await fetchVerses(URL, 'John', '3', '16', 'KJV');
+
+			expect(mockedAxios.get.mock.calls).toHaveLength(2);
+		});
+
+		it('does not retry after a client error', async () => {
+			mockedAxios.get.mockRejectedValueOnce({ response: { status: 404 } });
 
 			await expect(fetchVerses(URL, 'John', '3', '16', 'KJV')).rejects.toThrow('Something went wrong');
+			expect(mockedAxios.get.mock.calls).toHaveLength(1);
+		});
+
+		it('rejects when both attempts fail', async () => {
+			mockedAxios.get.mockRejectedValue(new Error('timeout of 4000ms exceeded'));
+
+			await expect(fetchVerses(URL, 'John', '3', '16', 'KJV')).rejects.toThrow('Something went wrong');
+			expect(mockedAxios.get.mock.calls).toHaveLength(2);
+		});
+
+		it('only reads the <main> part of the page', async () => {
+			mockPage(`<html><body><h1>Header title</h1><p>Header paragraph</p>${VERSE_PAGE}</body></html>`);
+
+			const result = await fetchPassage(URL, 'John', '3', '16', 'KJV');
+
+			expect(result.citation).toBe('John 3:16 (KJV)');
 		});
 
 		describe('full chapter', () => {
@@ -241,9 +276,10 @@ describe('verse.utils', () => {
 		});
 
 		it('rejects when the request fails', async () => {
-			mockedAxios.get.mockRejectedValueOnce(new Error('Network Error'));
+			mockedAxios.get.mockRejectedValue(new Error('Network Error'));
 
 			await expect(fetchTodayVerse(URL)).rejects.toThrow('Something went wrong');
+			expect(mockedAxios.get.mock.calls).toHaveLength(2);
 		});
 	});
 });
