@@ -41,7 +41,7 @@ export const getBookInfo = (book: string, language: string): BookInfo | undefine
 			(bookInfo: BookInfo) => bookInfo.book.toLowerCase() === book.toLowerCase(),
 		) ||
 		languageBooks.find((bookInfo: BookInfo) =>
-			bookInfo.alias.includes(book.toUpperCase()),
+			bookInfo.alias === book.toUpperCase(),
 		)
 	);
 }

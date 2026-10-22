@@ -18,6 +18,10 @@ describe('utils', () => {
 			expect(cleanText('Il dit:Viens.Et il vint')).toBe('Il dit: Viens. Et il vint');
 		});
 
+		it('replaces poetry line break markers with spaces', () => {
+			expect(cleanText('ô Eternel, ╵toi le rocher, ╵c’est')).toBe('ô Eternel, toi le rocher, c’est');
+		});
+
 		it('returns an empty string for blank input', () => {
 			expect(cleanText(' \n ')).toBe('');
 		});
