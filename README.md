@@ -93,8 +93,8 @@ GET /verse?book=John&chapter=3&verses=16
 | book      | string | Yes      | Book name (e.g. `John`, `Jean`) | - |
 | chapter   | string | Yes      | Chapter number | - |
 | verses    | string | Yes      | Verse number (or `-1` for the whole chapter) | - |
-| version   | string | No       | Bible version (see table below) | `KJV` (en), `LSG` (fr) |
-| language  | string | No       | Language (`en` or `fr`) | `en` |
+| version   | string | No       | Bible version (see table below) | `KJV` (en), `LSG` (fr), `EWERV (ee) |
+| language  | string | No       | Language (`en`, `fr` or `ee`) | `en` |
 
 
 ### Example response:
@@ -108,17 +108,18 @@ GET /verse?book=John&chapter=3&verses=16
 
 ## Available Bible Versions
 
-| Language | Available Versions |
-|----------|-------------------|
-| **en**   | KJV, ASV, AMP, AMPC, CPDV, ICL00D, NIV, NLT, NR06, VULG, B21, BKR, SNC, CSP, bibel.heute, Hfa, DELUT, LUTheute, SLB, NPK, SEB, SEBDT, SSV, MB20 |
-| **fr**   | LSG, BCC1923, PDV2017, BDS, BFC, S21, NFC |
+| Language | Code (ISO 639-1) | Available Versions |
+|----------|------------------|-------------------|
+| English | **en** | KJV, ASV, AMP, AMPC, CPDV, ICL00D, NIV, NLT, NR06, VULG, B21, BKR, SNC, CSP, bibel.heute, Hfa, DELUT, LUTheute, SLB, NPK, SEB, SEBDT, SSV, MB20 |
+| French | **fr** | LSG, BCC1923, PDV2017, BDS, BFC, S21, NFC |
+| Ewe | **ee** | EWERV, AL, EB14 |
 
 You can use any available version from [YouVersion](https://bible.com).
 
 ## Default Values
 
 - **Language**: English (`en`)
-- **Version**: KJV (English), LSG (French)
+- **Version**: KJV (English), LSG (French), EWERV (Ewe)
 
 ## Credits
 
