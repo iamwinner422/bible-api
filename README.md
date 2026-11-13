@@ -24,8 +24,8 @@ GET /verse/random
 
 | Parameter | Type   | Required | Description |
 |-----------|--------|----------|-------------|
-| version   | string | No       | Bible version (e.g. `KJV`, `LSG`, etc.) |
-| language  | string | No       | Language code (`en` or `fr`) |
+| version   | string | No       | Bible version (e.g. `KJV`, `LSG`, `EWERV`, etc.) |
+| language  | string | No       | Language code (`en`, `fr` or `ee`) |
 
 - If only the version is provided, the API will find the corresponding language and return a random verse from that language and version.
 - If only the language is provided, the API will use the default version for that language.
@@ -93,7 +93,7 @@ GET /verse?book=John&chapter=3&verses=16
 | book      | string | Yes      | Book name (e.g. `John`, `Jean`) | - |
 | chapter   | string | Yes      | Chapter number | - |
 | verses    | string | Yes      | Verse number (or `-1` for the whole chapter) | - |
-| version   | string | No       | Bible version (see table below) | `KJV` (en), `LSG` (fr), `EWERV (ee) |
+| version   | string | No       | Bible version (see table below) | `KJV` (en), `LSG` (fr), `EWERV` (ee) |
 | language  | string | No       | Language (`en`, `fr` or `ee`) | `en` |
 
 
