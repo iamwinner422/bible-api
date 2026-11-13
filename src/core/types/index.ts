@@ -1,6 +1,7 @@
 export enum Languages {
 	EN = 'en',
 	FR = 'fr',
+	EE = 'ee',
 }
 
 export interface VersionInfo {
@@ -32,4 +33,4 @@ export interface FinalResponse {
 }
 
 export const APOCRYPHE_BOOKS_ALIASES = [ 'TOB', 'JDT', 'ESG', '1MA', '2MA', 'WIS', 'SIR', 'BAR', 'LJE'];
-export const VERSIONS_WITH_APOCRYPHE_BOOKS = ['PDV2017', 'BCC1923'];
+export const VERSIONS_WITH_APOCRYPHE_BOOKS = ['PDV2017', 'BCC1923', 'EB14'];
