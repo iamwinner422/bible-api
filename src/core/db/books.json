@@ -757,5 +757,337 @@
 			"alias": "REV",
 			"chapters": 22
 		}
+	],
+	"ee": [
+		{
+			"book": "Mose I",
+			"alias": "GEN",
+			"chapters": 50
+		},
+		{
+			"book": "Mose II",
+			"alias": "EXO",
+			"chapters": 40
+		},
+		{
+			"book": "Mose III",
+			"alias": "LEV",
+			"chapters": 27
+		},
+		{
+			"book": "Mose IV",
+			"alias": "NUM",
+			"chapters": 36
+		},
+		{
+			"book": "Mose V",
+			"alias": "DEU",
+			"chapters": 34
+		},
+		{
+			"book": "Yosua",
+			"alias": "JOS",
+			"chapters": 24
+		},
+		{
+			"book": "Ʋɔnudrɔ̃lawo",
+			"alias": "JDG",
+			"chapters": 21
+		},
+		{
+			"book": "Rut",
+			"alias": "RUT",
+			"chapters": 4
+		},
+		{
+			"book": "Samuel I",
+			"alias": "1SA",
+			"chapters": 31
+		},
+		{
+			"book": "Samuel II",
+			"alias": "2SA",
+			"chapters": 24
+		},
+		{
+			"book": "Fiawo I",
+			"alias": "1KI",
+			"chapters": 22
+		},
+		{
+			"book": "Fiawo II",
+			"alias": "2KI",
+			"chapters": 25
+		},
+		{
+			"book": "Kronika I",
+			"alias": "1CH",
+			"chapters": 29
+		},
+		{
+			"book": "Kronika II",
+			"alias": "2CH",
+			"chapters": 36
+		},
+		{
+			"book": "Ezra",
+			"alias": "EZR",
+			"chapters": 10
+		},
+		{
+			"book": "Nexemya",
+			"alias": "NEH",
+			"chapters": 13
+		},
+		{
+			"book": "Ester",
+			"alias": "EST",
+			"chapters": 10
+		},
+		{
+			"book": "Hiob",
+			"alias": "JOB",
+			"chapters": 42
+		},
+		{
+			"book": "Psalmowo",
+			"alias": "PSA",
+			"chapters": 150
+		},
+		{
+			"book": "Lododowo",
+			"alias": "PRO",
+			"chapters": 31
+		},
+		{
+			"book": "Nyagblɔla",
+			"alias": "ECC",
+			"chapters": 12
+		},
+		{
+			"book": "Hawo ƒe ha",
+			"alias": "SNG",
+			"chapters": 8
+		},
+		{
+			"book": "Yesaya",
+			"alias": "ISA",
+			"chapters": 66
+		},
+		{
+			"book": "Yeremya",
+			"alias": "JER",
+			"chapters": 52
+		},
+		{
+			"book": "Konyifahawo",
+			"alias": "LAM",
+			"chapters": 5
+		},
+		{
+			"book": "Xezekiel",
+			"alias": "EZK",
+			"chapters": 48
+		},
+		{
+			"book": "Daniel",
+			"alias": "DAN",
+			"chapters": 12
+		},
+		{
+			"book": "Hosea",
+			"alias": "HOS",
+			"chapters": 14
+		},
+		{
+			"book": "Yoel",
+			"alias": "JOL",
+			"chapters": 3
+		},
+		{
+			"book": "Amos",
+			"alias": "AMO",
+			"chapters": 9
+		},
+		{
+			"book": "Obadya",
+			"alias": "OBA",
+			"chapters": 1
+		},
+		{
+			"book": "Yona",
+			"alias": "JON",
+			"chapters": 4
+		},
+		{
+			"book": "Mixa",
+			"alias": "MIC",
+			"chapters": 7
+		},
+		{
+			"book": "Naxum",
+			"alias": "NAM",
+			"chapters": 3
+		},
+		{
+			"book": "XABAKUK",
+			"alias": "HAB",
+			"chapters": 3
+		},
+		{
+			"book": "Zefanya",
+			"alias": "ZEP",
+			"chapters": 3
+		},
+		{
+			"book": "Xagai",
+			"alias": "HAG",
+			"chapters": 2
+		},
+		{
+			"book": "ZAXARYA",
+			"alias": "ZEC",
+			"chapters": 14
+		},
+		{
+			"book": "Maleaxi",
+			"alias": "MAL",
+			"chapters": 4
+		},
+		{
+			"book": "Mateo",
+			"alias": "MAT",
+			"chapters": 28
+		},
+		{
+			"book": "Marko",
+			"alias": "MRK",
+			"chapters": 16
+		},
+		{
+			"book": "Luka",
+			"alias": "LUK",
+			"chapters": 24
+		},
+		{
+			"book": "Yohanes",
+			"alias": "JHN",
+			"chapters": 21
+		},
+		{
+			"book": "Dɔwɔwɔwo",
+			"alias": "ACT",
+			"chapters": 28
+		},
+		{
+			"book": "Romatɔwo",
+			"alias": "ROM",
+			"chapters": 16
+		},
+		{
+			"book": "Korintotɔwo I",
+			"alias": "1CO",
+			"chapters": 16
+		},
+		{
+			"book": "Korintotɔwo",
+			"alias": "2CO",
+			"chapters": 13
+		},
+		{
+			"book": "Galatiatɔwo",
+			"alias": "GAL",
+			"chapters": 6
+		},
+		{
+			"book": "Efesotɔwo",
+			"alias": "EPH",
+			"chapters": 6
+		},
+		{
+			"book": "Filipitɔwo",
+			"alias": "PHP",
+			"chapters": 4
+		},
+		{
+			"book": "Kolosetɔwo",
+			"alias": "COL",
+			"chapters": 4
+		},
+		{
+			"book": "Tesalonikatɔwo I",
+			"alias": "1TH",
+			"chapters": 5
+		},
+		{
+			"book": "Tesalonikatɔwo II",
+			"alias": "2TH",
+			"chapters": 3
+		},
+		{
+			"book": "Timoteo I",
+			"alias": "1TI",
+			"chapters": 6
+		},
+		{
+			"book": "Timoteo II",
+			"alias": "2TI",
+			"chapters": 4
+		},
+		{
+			"book": "Tito",
+			"alias": "TIT",
+			"chapters": 3
+		},
+		{
+			"book": "Filemon",
+			"alias": "PHM",
+			"chapters": 1
+		},
+		{
+			"book": "Hebritɔwo",
+			"alias": "HEB",
+			"chapters": 13
+		},
+		{
+			"book": "Yakobo",
+			"alias": "JAS",
+			"chapters": 5
+		},
+		{
+			"book": "Petro I",
+			"alias": "1PE",
+			"chapters": 5
+		},
+		{
+			"book": "Petro II",
+			"alias": "2PE",
+			"chapters": 3
+		},
+		{
+			"book": "Yohanes I",
+			"alias": "1JN",
+			"chapters": 5
+		},
+		{
+			"book": "Yohanes II",
+			"alias": "2JN",
+			"chapters": 1
+		},
+		{
+			"book": "Yohanes III",
+			"alias": "3JN",
+			"chapters": 1
+		},
+		{
+			"book": "Yuda",
+			"alias": "JUD",
+			"chapters": 1
+		},
+		{
+			"book": "Nyaɖeɖefia",
+			"alias": "REV",
+			"chapters": 22
+		}
 	]
 }

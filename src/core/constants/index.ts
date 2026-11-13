@@ -13,6 +13,12 @@ export const DEFAULT_VERSIONS: { [key: string]: VersionInfo } = {
 		name: 'LSG',
 		language: Languages.FR
 	},
+	ee: {
+		id: 2259,
+		name: 'EWERV',
+		language: Languages.EE
+	}
+
 };
 
-export const SUPPORTED_LANGUAGES: string[] = ['en', 'fr'];
+export const SUPPORTED_LANGUAGES: string[] = ['en', 'fr', 'ee'];
